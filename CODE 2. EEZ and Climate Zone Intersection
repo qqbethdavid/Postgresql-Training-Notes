@@ -36,3 +36,16 @@ from geo.meow
 join geo.meow_climatezone
 
  
+
+Intersect Climate zone and eez_v9 and then calculate water areas
+
+select a.layer Climate_zones, b.eez_id,
+st_collectionextract(st_intersection(a.geom,b.geom), 3) as geom
+into temp table ClimeezIntrsc
+from geo."Climate_zones" a, geo.eez_v9 b
+where st_intersects(a.geom, b.geom)
+group by a.layer, b.eez_id, a.geom, b.geom;
+
+select climate_zones, eez_id,
+st_area(st_transform(geom,98287))/1000000 area
+from ClimeezIntrsc;
