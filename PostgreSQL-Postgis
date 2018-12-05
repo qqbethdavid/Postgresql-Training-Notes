@@ -1,0 +1,42 @@
+EEZ AND CLIMATE ZONE INTERSECTION (this works)
+
+select a.layer Climate_zones, b.eez_id,
+st_collectionextract(st_intersection(a.geom,b.geom), 3) as geom
+from geo."Climate_zones" a, geo.eez_v9 b
+where st_intersects(a.geom, b.geom)
+group by a.layer, b.eez_id, a.geom, b.geom;
+
+
+PUTTING THE RESULTS IN A TEMPORARY TABLE
+
+select a.layer climate_zone, b. meow_id, 
+st_collectionextract(st_intersection(a.geom, b.geom),3) as geom
+into temp table intersection_me
+from geo."Climate_zones" a, geo.meow b
+where st_intersects(a.geom,b.geom)
+group by a.layer, b.meow_id, a.geom, b.geom;
+
+select * from intersection_me;
+drop table intersection_me;  (HERE THE TEMPORARY TABLE WAS DROPPED).
+
+
+REVISING THE MEOW TABLE (to be able to include Subtropical, note: this is a partial script only)
+select gid,
+meow_id,
+eco_id,
+ecoregion,
+prov_id,
+province,
+realm_id,
+realm,
+climate_zone,
+shape_area,
+geom
+from geo.meow 
+join geo.meow_climatezone
+
+
+
+THE CLIMATE AND MEOW INTERSECTION AND CREATION OF WATER AREAS. (NOTE: INTERSECTION WAS RUN FIRST AND THEN FOLLOWED BY CALCULATION
+OF WATER AREAS. AFTER THE INTERSECTION WAS DONE THE QUERY WINDOW SHOWED ONLY STATISTICS WHICH SHOWED DETAILS OF THE QUERY. AFTER 
+THIS I RAN THE WATER AREA CALCULATION SEPARATELY AND IT WORKED. I PUT THE 
