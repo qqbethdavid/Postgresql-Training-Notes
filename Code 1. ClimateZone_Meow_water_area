@@ -1,0 +1,12 @@
+CODE 1. Climate zones and meow intersection with water area calculation. 
+
+select a.layer climate_zone, b. meow_id, 
+st_collectionextract(st_intersection(a.geom, b.geom),3) as geom
+into temp table climateandmeow2
+from geo."Climate_zones" a, geo.meow b
+where st_intersects(a.geom,b.geom)
+group by a.layer, b.meow_id, a.geom, b.geom;
+
+select climate_zone, meow_id,
+st_area(st_transform(geom,98287))/1000000 area
+from climateandmeow2;
