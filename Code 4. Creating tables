@@ -14,3 +14,13 @@ CREATE TABLE geo.climate_eez_waterarea (
 );
 
 WITHOUT PRIMARY KEY
+
+
+CREATE TABLE geo.climatezone_newcell_x_fao (
+	climate_zones varchar(100) NULL,
+	fao_id varchar(254) NULL,
+	centroid varchar(20) NULL,
+	geom geometry NULL
+);
+
+WITH CENTROID. I BELIEVE THE NUMBER REFERS TO THE LENGTH NOT PRECISION.
