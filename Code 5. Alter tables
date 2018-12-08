@@ -1,7 +1,7 @@
 alter table climatezone_newcell_x_fao
 add column id serial primary key;
 
-HERE ATTEMPTED TO ADD A NEW COLUMN (WHICH IS ALSO A PRIMARY KEY) TO AN EXISTING TABLE BUT THIS FAILED. SO I HAD TO DROP THE TABLE:
+HERE ATTEMPTED TO ADD A NEW COLUMN (WHICH IS ALSO A PRIMARY KEY) TO AN EXISTING TABLE BUT THIS FAILED. SO I HAD TO DROP THE COLUMN:
 
 alter table climatezone_newcell_x_fao
 drop column id;
