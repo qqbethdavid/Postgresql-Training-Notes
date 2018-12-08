@@ -9,3 +9,6 @@ drop column id;
 AND DROPPING THE TABLE WORKED. 
 
 
+THIS SCRIPT WORKED HOWEVER. I KEPT USING SERIAL BUT INSTEAD IT SHOULD BE BIGSERIAL
+
+alter table climatezone_newcell_x_fao add column id bigserial primary key;
