@@ -1,0 +1,51 @@
+select distinct marine_layer_id 
+from master_area all_coastal_settlement
+
+create table world_ifa as
+select
+w.cell_id,
+total_area,
+w.water_area,
+percent_water,
+shelf, 
+seamount,
+coral,
+pprod,
+pp_10yr_avg,
+pp_annual,
+s.fao_area_id,
+sum(s.water_area) ifa_water_area
+from geo.world_v47 w left join
+ (select cell_id ,water_area, fao_area_id from geo.simple_area_cell_assignment_raw where marine_layer_id = 14) s
+on w.cell_id = s.cell_id and s.fao_area_id = w.fao_area_id
+group by w.cell_id,
+total_area,
+w.water_area,
+percent_water,
+shelf, 
+seamount,
+coral,
+pprod,
+pp_10yr_avg,
+pp_annual,
+s.fao_area_id;
+
+select
+s.area_id,
+s.fao_area_id,
+sum(s.water_area) area,
+sum(s.water_area/w.water_area * w.shelf) shelf,
+sum(s.water_area/w.water_area * w.ifa_water_area) ifa,
+sum(s.water_area * w.coral)/ 128854.03 coral_reefs,
+sum(s.water_area/w.water_area * seamount)/9931 sea_mounts,
+avg(s.water_area/w.water_area * pprod) ppr,
+count(w.cell_id) number_of_cells
+from world_ifa w 
+left join geo.simple_area_cell_assignment_raw s
+on w.cell_id = s.cell_id
+where s.marine_layer_id = 12
+group by 
+s.area_id,
+s.fao_area_id
+
+There were so many changes in this script. There were many operations done before it came to this. 
