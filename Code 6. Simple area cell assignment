@@ -24,4 +24,90 @@ alter table geo.simple_area_cell_assignment_raw
 add constraint simple_area_cell_assignment_raw_pkey unique (id);
 
 
-This copy is also in my SAU_Database folder in D:/
+---THIS COPY IS ALSO IN MY SAU_DATABASE FORLDER in D:/
+---BELOW IS THE PROCEDURE ON HOW IT WAS DONE ONE BY ONE. 
+
+---RUN THIS FIRST
+
+---This is calculating water areas between simpl_area_cell_assignment_raw and marine_layer_14_ifa_v2-2_eez_v9_2018
+
+
+select '14' marine_layer_id,
+eez_id area_id,
+fao_id fao_area_id,
+seq cell_id,
+st_area(st_transform(geom, 98287))/1000000 water_area
+from geo."marine_layer_14_ifa_v2-2_eez_v9_2018"
+group by 1,2,3,4,5;
+
+
+Then erase the contents of the simple_area_cell_assignment in sau_geo using truncate
+
+Then transfer/import the tables from sau_int to sau_geo. (make a copy of the simple_area_cell_assignment from sau_int to sau_geo. You have to import the table from sau_int to sau_geo.) 
+
+Then select all columns from simple_area_cell_assignment_raw
+
+Select * from simple_area_cell_assignment
+Where marine layer=14;
+
+Then delete the marine layer 14 for that table
+
+Delete from simple_area_cell_assignment_raw
+Where marine_layer_id=14
+
+Then we put the newly calculated water areas for marine layer ifa into the simple_area-cell_assignment_raw
+
+insert into geo.simple_area_cell_assignment_raw
+(id ,marine_layer_id, area_id, fao_area_id, cell_id, water_area)
+select nextval('simple_area_cell_assignment_raw_id_seq'::regclass),
+14 marine_layer_id,
+eez_id area_id,
+cast(fao_id as int) fao_area_id,
+seq cell_id,
+st_area(st_transform(geom, 98287))/1000000 water_area
+from geo."marine_layer_14_ifa_v2-2_eez_v9_2018"
+group by 1,2,3,4,5,6;
+
+we had a problem entering the data because of the primary key. 
+Primary key had to be deleted. We tried some codes but did not work so we had to do vaccum full analyze
+
+vacuum full analyze geo.simple_area_cell_assignment_raw;
+
+this is to entirely remove the data that you had put. Usually postgresql does not really delete those data but just adds data. So we use this code.
+
+Then we had to alter sequence because the id sequence seems to be wrong. 
+
+ALTER SEQUENCE simple_area_cell_assignment_raw_id_seq RESTART WITH 1;
+UPDATE geo.simple_area_cell_assignment_raw SET id=nextval('simple_area_cell_assignment_raw_id_seq');
+
+Then we enter the data again in simple_area_cell_assignment_raw 
+
+insert into geo.simple_area_cell_assignment_raw
+(id ,marine_layer_id, area_id, fao_area_id, cell_id, water_area)
+select nextval('simple_area_cell_assignment_raw_id_seq'::regclass),
+14 marine_layer_id,
+eez_id area_id,
+cast(fao_id as int) fao_area_id,
+seq cell_id,
+st_area(st_transform(geom, 98287))/1000000 water_area
+from geo."marine_layer_14_ifa_v2-2_eez_v9_2018"
+group by 1,2,3,4,5,6;
+
+(this code is the same as the one above)
+now this worked. After this we added the constraint because we manually deleted it.
+
+(note when deleting constraints and indexes we have to refer first to the one in wiki github seaaroundus so we can recreate the constraints)
+
+
+alter table geo.simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_pkey unique (id);
+
+
+then the newly created simple_area_cell_assignment_raw table will now be placed in sau_int
+
+we first truncate the data from geo. _area_cell_assignment_raw 
+
+truncate geo.simple_area_cell_assignment_raw;
+
+then export the data from sau_geo to sau_int manually using the GUI. 
+
