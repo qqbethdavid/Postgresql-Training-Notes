@@ -1,0 +1,24 @@
+insert into geo.simple_area_cell_assignment_raw
+(id ,marine_layer_id, area_id, fao_area_id, cell_id, water_area)
+select nextval('simple_area_cell_assignment_raw_id_seq'::regclass),
+14 marine_layer_id,
+eez_id area_id,
+cast(fao_id as int) fao_area_id,
+seq cell_id,
+st_area(st_transform(geom, 98287))/1000000 water_area
+from geo."marine_layer_14_ifa_v2-2_eez_v9_2018"
+group by 1,2,3,4,5,6;
+
+
+truncate geo.simple_area_cell_assignment_raw;
+
+delete  from simple_area_cell_assignment_raw
+where marine_layer_id=14;
+
+vacuum full analyze geo.simple_area_cell_assignment_raw;
+
+ALTER SEQUENCE simple_area_cell_assignment_raw_id_seq RESTART WITH 1;
+UPDATE geo.simple_area_cell_assignment_raw SET id=nextval('simple_area_cell_assignment_raw_id_seq');
+
+alter table geo.simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_pkey unique (id);
