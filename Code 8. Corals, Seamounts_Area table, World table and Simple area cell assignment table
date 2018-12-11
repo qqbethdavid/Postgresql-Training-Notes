@@ -48,4 +48,15 @@ group by
 s.area_id,
 s.fao_area_id
 
-There were so many changes in this script. There were many operations done before it came to this. 
+
+---initially, before the above script was run, we had to first determine the total number of corals and seamount
+
+select sum(water_area*coral)
+from world_v47
+
+select count(seamount)
+from world_v47
+where seamount != 0
+
+
+---There were so many changes in this script. There were many operations done before it came to this. 
