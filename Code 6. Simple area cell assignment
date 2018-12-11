@@ -22,3 +22,6 @@ UPDATE geo.simple_area_cell_assignment_raw SET id=nextval('simple_area_cell_assi
 
 alter table geo.simple_area_cell_assignment_raw
 add constraint simple_area_cell_assignment_raw_pkey unique (id);
+
+
+This copy is also in my SAU_Database folder in D:/
