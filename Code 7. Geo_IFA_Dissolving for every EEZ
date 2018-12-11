@@ -1,0 +1,33 @@
+create table ifa_dissolve as
+select eez_id, fao_id, ST_UNION(geom) geom
+from geo."marine_layer_14_ifa_v2-2_eez_v9_2018"
+group by eez_id, fao_id
+
+insert into ifa (object_id, eez_id, c_name, a_name, a_num,area_km2,shape_leng, shape_area, ifa_is_located_in_this_fao, geom  )
+select null object_id, i.eez_id, e.name c_name, g.name a_name, e.geo_entity_id a_num,st_area(st_transform(st_union, 98287))/1000000 area_km2, null shape_leng,st_area(st_transform(st_union, 98287))/1000000 shape_area, cast(i.fao_id as int) ifa_is_located_in_this_fao, st_multi(i.st_union) geom 
+from ifa_dissolve i,
+master_eez_sau_int e,
+geo_entity g
+where i.eez_id = e.eez_id and e.geo_entity_id = g.geo_entity_id
+
+truncate ifa;
+vacuum analyse ifa;
+
+ALTER SEQUENCE ifa_gid_seq RESTART WITH 1
+from geo.ifa;
+UPDATE geo.simple_area_cell_assignment_raw SET id=nextval('simple_area_cell_assignment_raw_id_seq');
+
+
+CREATE TABLE geo.ifa (
+  gid        serial primary key,               
+  object_id   integer,               
+  eez_id      integer,               
+  c_name     varchar(50), 
+  a_name     varchar(50),
+  a_num      integer,               
+  area_km2   numeric,                                                       
+  shape_leng numeric,               
+  shape_area numeric,
+  ifa_is_located_in_this_fao numeric,
+  geom       geometry(MultiPolygon, 4326)
+);
