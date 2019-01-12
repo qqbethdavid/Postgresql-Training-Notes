@@ -1,3 +1,8 @@
 To be able to open the command prompt in Dbeaver program just go to the Dbeaver folder 
 hold the SHIFT key and right click.
 An option to open command prompt from here will be available. 
+
+
+Another option will be to go to the Dbeaver folder in Windows Explorer
+Go to the address bar and delete anything that's written on the address bar 
+and type cmd then press Enter.
