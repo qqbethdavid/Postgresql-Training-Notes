@@ -12,3 +12,10 @@ ORDER BY
  
  Second, use ASC to sort the result set in ascending order and DESCto sort the result set in descending order. 
  If you leave it blank, the ORDER BY clause will use ASC by default.
+
+
+select * from Marine_Layer_15_v9_ICES_2018
+Where eez_name='High Seas'and Major_FA='27' order by seq asc;
+
+select * from Marine_Layer_15_v9_ICES_2018
+order by seq asc,;
