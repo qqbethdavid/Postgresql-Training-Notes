@@ -1,0 +1,9 @@
+DROP TABLE sql statement deletes your sql table. But very often you don't want to 
+delete your table (because you want to keep the structure of it), only clear that
+data. You can do this by using the TRUNCATE TABLE statement. 
+
+TRUNCATE deletes all the rows that we have inserted in the table before; but it will 
+keep the table itself.
+
+--Source: this is a topic for pgadmin. It may be similar for DBeaver. 
+--https://data36.com/how-to-import-data-into-sql-tables/
