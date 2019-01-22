@@ -1,0 +1,13 @@
+create table catch_cod_01_22_2019_a (catch_year char(4) null,
+lon float8 null,
+lat float8 null,
+catch_sum float8 null);
+
+create table catch_cod_01_22_2019_b (id serial not null,
+catch_year char(4)null,
+lon float8 null,
+lat float8 null,
+catch_sum float8 null);
+
+alter table catch_cod_01_22_2019_b
+alter column id type int8;
