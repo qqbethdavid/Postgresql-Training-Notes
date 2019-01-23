@@ -11,3 +11,12 @@ catch_sum float8 null);
 
 alter table catch_cod_01_22_2019_b
 alter column id type int8;
+
+
+---I have created a table first in geo and did it with sql. Once this is done I right-clicked this table
+and imported the csv from my local (or also from the flat file). In creating the table I tried putting 
+in an id column which I initially designated as primary key but this did not work. So I designated the id
+as "null" instead so that the csv data can be imported into the newly created table in geo. Usually this
+works. What happens then is I'll have to find a way to alter the id data type in the new table because it
+is null. It should be a primary key, not null and should be indicated in the table as a constraint. At
+this time I am still working on this. 
