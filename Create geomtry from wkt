@@ -1,0 +1,15 @@
+select id, eez_name, (st_geomfromtext(wkt, 4326)), 
+centroid, water_area, seq, fao_id,
+eez_id, area_27
+from temp_ml_15v9ices2018;
+
+I HAD A .GPKG FILE WHICH I OPENED IN QGIS (USING THE OPEN VECTOR ADD FILE). I SAVED THIS AS A CSV FILE
+AND CHANGED THE GEOMETRY TO WKT SEPARATED IN COMMAS. I WAS ABLE TO LET THE GEOMETRY OUT OF THE GPKG FILE
+AND THIS WAS EXPRESSED AS WKT FORM. USING THE ABOVE SCRIPT I CHANGED WKT TO GEOMETRY. THIS APPLIES TO 
+ALL THE ROWS. 
+
+SCRIPT WAS MADE FROM THIS GENERAL SYNTAX: 
+
+geometry ST_GeomFromText(text WKT);
+
+ST_GeomFromText — Return a specified ST_Geometry value from Well-Known Text representation (WKT).
