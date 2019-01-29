@@ -1,0 +1,22 @@
+select Column1, Column2, count(*)
+from yourTable
+group by Column1, Column2
+HAVING count(*) > 1
+
+
+THE ACTUAL THING:
+
+select eez_name, seq, count(*)
+into temp table duplicate
+from marine_layer_15_v9_ices_2018_v1
+group by eez_name, seq
+having count (*) >1;
+
+insert into ml_15_ices_2016_v9_duplicate_seq (eez_name,
+seq, count)
+select * from duplicate;
+
+create table ml_15_ices_2016_v9_duplicate_seq
+(eez_name varchar null, 
+seq int8 null, 
+count int4 null);
