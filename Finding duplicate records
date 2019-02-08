@@ -20,3 +20,8 @@ create table ml_15_ices_2016_v9_duplicate_seq
 (eez_name varchar null, 
 seq int8 null, 
 count int4 null);
+
+
+read this source for more information:
+
+https://chartio.com/learn/databases/how-to-find-duplicate-values-in-a-sql-table/
