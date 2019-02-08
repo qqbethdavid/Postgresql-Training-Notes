@@ -1,0 +1,25 @@
+I created a schema in postgres beth database. At first I couldn't create one but then I clicked the public schema (this 
+was the schema orginally active) inmuffetsofanos database and created a schema named trial. At first this was not in bold. 
+The public schema was the one in bold letters. I found out I can switch and set the active schema by right clicking the schema 
+I want, and click the "Set as Active" in the dialogue box that would appear. I had also tried setting muffetsofanos database 
+to active but every time I do this the active schema changes from trial to public. So I have to set "trial" schema again
+to active (kind of annoying really).
+
+I was confused initally how to create the sample_1 table in the Trial schema. I actually made an initial table titled
+sample using a script but I don't know where Dbeaver put it. I checked the sau databases but it doesn't seem to be 
+there. So I watched this Youtube video about DBeaver how to: 
+https://www.youtube.com/watch?v=y4WPLly0eY4  (Dbeaver how to)
+
+and I was able to understand. Remember that everytime you create a table you must always put your cursor on the database or
+schema where you intent to put the table. But also you must also check the side by side fields in the task bar that
+says in what database and schema you are (This is the one directly above the scripting window). Always check that 
+eveytime you create a table or a schema. 
+
+So I created a sample_1 table using a script and checking first where I was when I created it. 
+
+Also, I created my database "postgres beth" not in Dbeaver but it was initially made in pgadmin when I installed it. 
+I created this database long before I installed Dbeaver. I can access this both in pgadmin and Dbeaver. I deleted the other
+databases (namely postgres and gisdb) and left muffetsofanos as my main database in postgres beth. 
+
+
+
