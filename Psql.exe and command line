@@ -1,0 +1,22 @@
+to be able to use the psql.exe in the command line I had to include the C:\Program Files\PostgreSQL\10\bin 
+in the path system variable. (this can be accessed via control panel/system/advanced system settings/
+environment variables) 
+From the system variables path select path and edit:
+Then append this string to the existing PATH Variable Value:
+
+;C:\Program Files\PostgreSQL\9.2\bin
+
+and click "OK" three times to exit the menus.
+
+Now, close the console and restart it.
+
+I changed the directory in the command prompt to postgresql by
+opening command prompt in administrator mode (open it in start and right click) using Winkey+R. 
+This will bring up the users directory. I changed this by adding 
+cd after the C:\Users\beth>
+
+C:\Users\beth>cd C:\Program Files\PostgreSQL\10\bin
+
+there must be a space after the cd 
+
+
