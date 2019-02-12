@@ -21,3 +21,10 @@ water_area, seq having count(*) > 1);
 
 source: 
 https://bytes.com/topic/postgresql/answers/424132-select-duplicates-table
+
+
+Find duplicates and list side by side only selected records
+
+select * from duplicates where (eez_name, water_area, seq) in 
+(select eez_name, water_area, seq from duplicates d2 where eez_name= 'Azores Isl. (Portugal)'
+group by eez_name, water_area, seq having count(*) > 1);
