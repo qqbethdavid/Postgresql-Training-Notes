@@ -28,3 +28,11 @@ Find duplicates and list side by side only selected records
 select * from duplicates where (eez_name, water_area, seq) in 
 (select eez_name, water_area, seq from duplicates d2 where eez_name= 'Azores Isl. (Portugal)'
 group by eez_name, water_area, seq having count(*) > 1);
+
+or directly from the main table
+
+select * from marine_layer_15_ices2016_eezv9_2019
+where (eez_name, water_area, seq) in (select eez_name, 
+water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2
+where eez_name='Azores Isl. (Portugal)' group by eez_name, water_area,
+seq having count (*) > 1);
