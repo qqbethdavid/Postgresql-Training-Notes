@@ -1,0 +1,23 @@
+Find duplicate and list them side by side
+code used:
+
+SELECT *
+FROM mytable
+WHERE (identification_number,date_of_birth) IN
+(SELECT identification_number
+, date_of_birth
+FROM mytable m2
+GROUP BY identification_number,data_of_birth
+HAVING COUNT(*) > 1
+)
+
+
+used in Marine Layer 15 to find slivers
+
+select * from marine_layer_15_ices2016_eezv9_2019 where (water_area, seq) in 
+(select water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2 group by 
+water_area, seq having count(*) > 1);
+
+
+source: 
+https://bytes.com/topic/postgresql/answers/424132-select-duplicates-table
