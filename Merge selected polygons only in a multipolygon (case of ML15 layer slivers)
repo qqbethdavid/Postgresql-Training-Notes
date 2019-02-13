@@ -1,0 +1,14 @@
+select eez_name, water_area, centroid, seq, st_union((select a.geom
+from marine_layer_15_ices2016_eezv9_2019 a
+where id=492142 group by a.geom), (select b.geom from
+marine_layer_15_ices2016_eezv9_2019 b where  id=492143 group by
+b.geom)) as two_geom 
+from marine_layer_15_ices2016_eezv9_2019 ml2 
+where id=492142
+group by eez_name, water_area, centroid, seq, two_geom; 
+
+THIS RESULTED TO MERGING OF SINGLE POLYGONS WITHIN A LARGER POLYGON. IN CASE
+YOU DON'T WANT TO TOUCH OR MERGE THE OTHER POLYGONS AND ONLY WANT SEVERAL NUMBER
+OF POLYGONS TO MERGE WITHIN. LIKE FOR EXAMPLE THE HCAF CELLS WHICH HAVE 
+BEEN DISAGGREGATED DUE TO THE SLIVERS.
+
