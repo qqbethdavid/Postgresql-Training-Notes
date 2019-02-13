@@ -10,5 +10,18 @@ group by eez_name, water_area, centroid, seq, two_geom;
 THIS RESULTED TO MERGING OF SINGLE POLYGONS WITHIN A LARGER POLYGON. IN CASE
 YOU DON'T WANT TO TOUCH OR MERGE THE OTHER POLYGONS AND ONLY WANT SEVERAL NUMBER
 OF POLYGONS TO MERGE WITHIN. LIKE FOR EXAMPLE THE HCAF CELLS WHICH HAVE 
-BEEN DISAGGREGATED DUE TO THE SLIVERS.
+BEEN DISAGGREGATED DUE TO THE SLIVERS. UNFORTUNATELY, THE RESULTANT GEOM IS
+A POLYGON NOT A MULTIPOLYGON AS THE ONE IN MARINE LAYER 15. SO I HAD TO MAKE ANOTHER
+SCRIPT TO CONVERT THAT INTO A MULTIPOLYGON. THIS ONE HOWEVER WORKED:
 
+
+select id, eez_name, water_area, centroid, seq, fao_id, area_27, st_Multi(st_union((select a.geom
+from marine_layer_15_ices2016_eezv9_2019 a
+where id=492178 group by a.geom), 
+(select b.geom from marine_layer_15_ices2016_eezv9_2019 b where  id=492179 group by
+b.geom))) as two_geom 
+from marine_layer_15_ices2016_eezv9_2019 ml2 
+where id=492178
+group by id, eez_name, water_area, centroid, seq, fao_id, area_27, two_geom;
+
+NOW MY PROBLEM IS HOW TO AUTOMATE THIS. 
