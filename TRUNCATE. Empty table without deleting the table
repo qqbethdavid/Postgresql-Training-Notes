@@ -7,3 +7,10 @@ keep the table itself.
 
 --Source: this is a topic for pgadmin. It may be similar for DBeaver. 
 --https://data36.com/how-to-import-data-into-sql-tables/
+
+
+truncate table oda;
+vacuum full analyze oda;
+
+TRUNCATE TABLE <table name>;
+VACCUM FULL ANALYZE <table name>;
