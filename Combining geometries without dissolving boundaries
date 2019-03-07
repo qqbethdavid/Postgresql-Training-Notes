@@ -1,0 +1,23 @@
+Source: 
+https://gis.stackexchange.com/questions/284469/how-to-merge-polygons-but-keeping-all-the-inner-polygons/289446
+
+
+
+You can use ST_Collect instead of ST_Union.
+
+This function returns the all the geometries that you collect as one geometry
+
+SELECT ST_collect (a.geom, b.geom) from table a
+CROSS JOIN table b
+WHERE a.name = 'A'
+  AND b.name='B'
+
+**change it as follows:**
+
+table = your table name
+name = your field name
+A, B = your polygons to be collect
+Example:
+
+select ST_collect (a.geom, b.geom) from polygons a, polygons b
+where a.id = 6 and b.id=5
