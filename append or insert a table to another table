@@ -1,0 +1,7 @@
+insert into slb_seabirds_alcidaetofregatidae 
+(speccode, "class", "order", "family", genus, species, demerspelag,
+depthrangeshallow, depthrangedeep, depthrangeref, depthrangecomshallow,
+depthrangecomdeep, depthcomref, iucncode, stockdefs, northernmost,
+northsouthn, southernmost, northsouths, westernmost, westeastw, 
+easternmost, westeaste, boundingref, boundingmethod, iucnid)
+select * from slb_seabirds_hydrobatidaetosulidae; 
