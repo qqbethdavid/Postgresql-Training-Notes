@@ -1,0 +1,21 @@
+#I USED THIS SCRIPT TO MERGE GEOMETRIES
+
+-- Create a nyc_census_counties table by merging census blocks
+CREATE TABLE nyc_census_counties AS
+SELECT
+  ST_Union(geom)::Geometry(MultiPolygon,26918) AS geom,
+  SubStr(blkid,1,5) AS countyid
+FROM nyc_census_blocks
+GROUP BY countyid;
+
+#I MODIFIED THE SCRIPT TO THIS
+
+select 
+st_multi(st_union(geom)) as geom,
+water_area
+into temp table tub2
+from azores_dups2
+group by water_area; 
+
+insert into azores_merg (geom, water_area)
+select * from tub2;
