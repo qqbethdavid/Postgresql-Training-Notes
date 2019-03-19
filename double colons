@@ -1,0 +1,9 @@
+A type cast specifies a conversion from one data type to another.
+
+PostgreSQL accepts two equivalent syntaxes for type casts, the PostgreSQL-specific value::type and the SQL-standard CAST(value AS type).
+
+In this specific case, '{apple,cherry apple, avocado}'::text[]; takes the string literal {apple,cherry apple, avocado} and tells PostgreSQL to interpret it as an array of text.
+
+See the documentation on SQL expressions and arrays for details.
+
+source: https://stackoverflow.com/questions/15537709/what-does-do-in-postgresql/15537761
