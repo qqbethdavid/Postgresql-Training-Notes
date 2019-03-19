@@ -1,0 +1,3 @@
+ST_CollectionExtract — Extracts a particular type of geometry from a collection 
+and converts them to MULTI*. The values for the type of geometry are 1=Point, 2=Line, 3=Polygon.
+
