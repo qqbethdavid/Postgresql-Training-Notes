@@ -1,0 +1,216 @@
+Script 50 
+
+create table marine_layer_15_ices2016_eezv9_2019
+(id int8 primary key not null, eez_name varchar null,
+geom geometry null, centroid varchar null,
+water_area float8 null, seq int8 null,
+fao_id int8 null, eez_id int8 null,
+area_27 varchar null); 
+
+select * from marine_layer_15_ices2016_eezv9_2019
+where eez_name='Azores Isl. (Portugal)' and area_27='10.a.1';
+
+select * from marine_layer_15_ices2016_eezv9_2019 where (water_area, seq) in 
+(select water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2 group by 
+water_area, seq having count(*) > 1);
+
+
+select * into temp table temp_duplicate 
+from marine_layer_15_ices2016_eezv9_2019 
+where (water_area, seq) in 
+(select water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2 group by 
+water_area, seq having count(*) > 1);
+
+insert into duplicates (id, eez_name, geom, centroid,
+water_area, seq, fao_id, eez_id, area_27)
+select * from temp_duplicate; 
+
+select count(*) from duplicates;
+
+select * into temp table bet from duplicates where (eez_name, water_area, seq) in 
+(select eez_name, water_area, seq from duplicates d2 where eez_name= 'Azores Isl. (Portugal)'
+group by eez_name, water_area, seq having count(*) > 1);
+
+insert into azores_dups2 (id, eez_name, geom, centroid, water_area, seq, 
+fao_id, eez_id, area_27) 
+select * from bet; 
+
+
+
+
+select * 
+from marine_layer_15_ices2016_eezv9_2019
+where (eez_name, water_area, seq) in (select eez_name, 
+water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2
+where eez_name='Azores Isl. (Portugal)' 
+group by eez_name, water_area,
+seq having count (*) > 1);
+
+select * from Azores 
+where eez_name='Azores Isl. (Portugal)' and 
+area_27='10.a.1' group by id, water_area, seq ;
+
+
+select id, water_area, seq, area_27
+from Azores where eez_name='Azores Isl. (Portugal)' and 
+area_27='10.a.2' group by id, water_area, seq, area_27;
+
+
+
+select id, eez_name, water_area, centroid, seq, fao_id, area_27, st_Multi(st_union((select a.geom
+from marine_layer_15_ices2016_eezv9_2019 a
+where id=492178 group by a.geom), 
+(select b.geom from marine_layer_15_ices2016_eezv9_2019 b where  id=492179 group by
+b.geom))) as two_geom 
+from marine_layer_15_ices2016_eezv9_2019 ml2 
+where id=492178
+group by id, eez_name, water_area, centroid, seq, fao_id, area_27, two_geom; 
+
+
+
+---one by one merging oh my god----
+
+select id, eez_name, 
+st_Multi(st_union(
+(select a.geom
+from marine_layer_15_ices2016_eezv9_2019 a
+where id=491033 group by a.geom), 
+(select b.geom from marine_layer_15_ices2016_eezv9_2019 b where  id=491034 group by
+b.geom))) as geom, centroid, water_area, seq, fao_id, eez_id, area_27 
+into temp table marfets35
+from marine_layer_15_ices2016_eezv9_2019 ml2 
+where id=491033
+group by id, eez_name, geom, centroid, water_area, seq, fao_id, eez_id, area_27;
+
+----one by one merging, is there another way?!!!---
+
+insert into all_merge_no_dups_main 
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from marfets35; 
+----one by one merging is there another way??!!----
+
+
+select count(*) from duplicates;
+
+insert into all_merge_no_dups_main 
+select * from all_merge_nodups where id=497642; 
+
+delete from all_merge_no_dups_main where id=494738;
+
+---#this is my script for merging duplicates in batches
+---#Merging Azores
+select 
+st_multi(st_union(geom)) as geom,
+water_area
+into temp table tub6
+from all_slivers_waiting_table
+group by water_area; 
+
+insert into all_merge (geom, water_area)
+select * from tub6;
+
+
+
+---#merging high seas
+select 
+st_multi(st_union(geom)) as geom,
+water_area
+
+from (select * from duplicates where eez_name = 'High Seas' and 
+area_27 = '10.a.2') as highseas_dups
+group by water_area; 
+
+insert into all_merge (geom, water_area)
+select * from tub3;
+
+truncate table all_merge;
+
+
+select a.id, b.eez_name, b.geom, b.centroid, b.water_area,
+b.seq, b.fao_id, b.eez_id, b.area_27 into temp table ids5
+from all_slivers_ml_15 a
+inner join marine_layer_15_ices2016_eezv9_2019 b on a.id=b.id; 
+
+insert into all_slivers_waiting_table
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from ids5;
+---table to use is ids1
+
+select 
+st_multi(st_union(geom)) as geom,
+water_area into temp table tub19
+from (select * from all_slivers_waiting_table where 
+(eez_name='Iceland' and area_27='2.a.2') or 
+(eez_name='Iceland' and area_27='2.a.1')) as sliver24
+group by water_area; 
+
+insert into all_merge (geom, water_area)
+select * from tub19
+
+select b.id, b.eez_name, a.geom, b.centroid, a.water_area,
+b.seq, b.fao_id, b.eez_id, b.area_27 into temp table ben20
+from all_merge a 
+inner join bat8 b on a.water_area=b.water_area; 
+
+select * into temp table bat8 from all_slivers_waiting_table where 
+(eez_name='Iceland' and area_27='2.a.1') or
+(eez_name='Iceland' and area_27='2.a.2');
+; 
+
+
+
+insert into all_merge_nodups
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from ben20;
+
+insert into all_merge_no_dups_main
+select * from all_merge_nodups; 
+
+select * into temp table ned9 from all_merge_nodups where 
+(eez_name='France (Atlantic Coast)' and area_27='8.d.2') or 
+(eez_name='Spain (Northwest)' and area_27='8.e.2') or 
+(eez_name='Portugal' and area_27='9.b.2');
+
+insert into duplicates (id, eez_name, 
+geom, centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from ned9; 
+
+
+
+
+insert into all_merge_no_dups_main
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from ned6;
+
+select * into temp table days1 from all_merge_nodups where 
+(id=491762) or (id=488360) or (id=495954) or (id=497598) or 
+(id=498170) or (id=498214) or (id=501037) or (id=502095) or 
+(id=502096) or (id=502124); 
+
+insert into all_merge_no_dups_main
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from days1;
+
+select * from all_merge_nodups where 
+(water_area) in (select water_area from all_slivers_waiting_table a
+group by water_area having count(*)=2);
+
+select * into temp table gemma4 from all_merge_nodups where  
+(eez_name='High Seas' and area_27='7.k.1');
+
+
+insert into all_merge_no_dups_main
+(id, eez_name, geom,
+centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from gemma4;
+
+delete from all_merge_no_dups_main 
+where 
+
+select * from all_merge_nodups where 
+(eez_name='United Kingdom' and area_27='6.b.2'); 
