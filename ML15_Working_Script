@@ -1,0 +1,53 @@
+select * into temp table ate 
+from bibbo where (water_area, seq) in (select water_area, seq from bibbo b
+group by water_area, seq having count(*)>1);
+
+select id, eez_name, centroid, water_area, seq, fao_id, area_27,
+st_multi(st_union(select a.geom from ate a where id=491673), 
+(select b.geom from ate b where id=491674)) as geom
+from ate m2
+group by id, eez_name, geom, centroid, water_area, seq, fao_id, area_27; 
+
+
+
+
+ select * into temp table barn from all_merge_waiting_table where (id, eez_name, geom, centroid,
+ water_area, seq, fao_id, eez_id, area_27) in 
+ (select * from all_merge_waiting_table a group by id, eez_name, geom, centroid,
+ water_area, seq, fao_id, eez_id, area_27 
+ having count(*)=1);
+
+insert into all_merge_no_dups (id, eez_name, geom, centroid, water_area, seq, fao_id,
+eez_id, area_27)
+select * from barn; 
+
+select * from all_slivers_waiting_table where 
+(water_area) in (select water_area from all_slivers_waiting_table a
+group by water_area having count(*)=3);
+
+alter table duplicates
+drop constraint duplicates_pkey;
+
+select * from duplicates where 
+(water_area) in (select water_area from all_slivers_waiting_table a
+group by water_area having count(*)=2);
+
+select * from all_merge_nodups where 
+(water_area) in (select water_area from all_merge_nodups a group by water_area 
+having count(*)>1);
+
+select distinct * into temp table base from duplicates;
+
+insert into all_merge_no_dups_main (id, eez_name, 
+geom, centroid, water_area, seq, fao_id, eez_id, area_27)
+select * from base;
+
+select * from all_slivers_waiting_table where geom like '37 75.194501839043895%'; 
+ 
+
+select distinct * from all_merge_nodups;
+
+select * from all_slivers_waiting_table where area_27='2.a.2'; 
+
+delete from all_merge_no_dups_main 
+where id=498465;
