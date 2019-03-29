@@ -1,0 +1,14 @@
+truncate table all_slivers_waiting_table;
+vacuum full analyze all_slivers_waiting_table;
+
+truncate table all_merge_nodups;
+vacuum full analyze all_merge_nodups; 
+
+truncate table all_merge;
+vacuum full analyze all_merge;
+
+truncate table all_slivers_ml_15;
+vacuum full analyze all_slivers_ml_15; 
+
+truncate table duplicates;
+vacuum full analyze duplicates;
