@@ -36,3 +36,17 @@ where (eez_name, water_area, seq) in (select eez_name,
 water_area, seq from marine_layer_15_ices2016_eezv9_2019 m2
 where eez_name='Azores Isl. (Portugal)' group by eez_name, water_area,
 seq having count (*) > 1);
+
+
+
+Also another form (when used in merging polygons and grouping the values to only one of the
+columns):
+
+select 
+st_multi(st_union(geom)) as geom,
+water_area 
+from 
+(select * from all_slivers_waiting_table where (water) in 
+(select water_area from all_slivers_waiting_table a group by water_area 
+having count(*)=3)) as allsliverswaiting2
+group by water_area; 
