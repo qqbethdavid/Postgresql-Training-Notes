@@ -1,0 +1,21 @@
+To be able to open the command prompt in Dbeaver program just go to the Dbeaver folder 
+hold the SHIFT key and right click.
+An option to open command prompt from here will be available. 
+
+
+Another option will be to go to the Dbeaver folder in Windows Explorer
+Go to the address bar and delete anything that's written on the address bar 
+and type cmd then press Enter.
+
+I re-installed postgresql and postgis in my laptop pc because I forgot the password.
+So postgis did not seem to work on the database (postgres) that I created in my
+pc. This caused my "training" schema to have no capabilities for postgis. I had to 
+even create a script to enable postgis in the training schema. I used this script:
+
+create extension postgis;
+
+I think it is important that you execute this script using an sql editor window that
+belongs to the schema you want postgis to be enabled. For my case that is the training
+schema. This means the public schema is not enabled. (I actually tried some postgis 
+commands in the public schema and it didn't work). I found the script in the postgis 2.4
+manual that was installed along with the postgis application. You can find it in windows start.
