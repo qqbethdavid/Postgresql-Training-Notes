@@ -1,0 +1,27 @@
+My newly created or restored schema does not accept geom because the postgis extension 
+is not set on this schema. 
+
+If you want your schema to be the one permament 
+you must set schema path first (i forgot the url)
+
+set search_path to <schema_name>;
+
+
+to activate postgis on your schema type:
+
+create extension postgis; 
+
+
+From stack overflow:
+I had the same problem, but it was fixed by running following code
+
+CREATE EXTENSION postgis;
+In detail,
+
+open pgAdmin
+select (click) your database
+click "SQL" icon on the bar
+run "CREATE EXTENSION postgis;" code
+
+and for further reading: 
+https://stackoverflow.com/questions/2875610/permanently-set-postgresql-schema-path
