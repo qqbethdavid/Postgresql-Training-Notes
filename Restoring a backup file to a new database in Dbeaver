@@ -1,0 +1,15 @@
+My computer was replaced and I had to make a backup of the local database I have in my old 
+I3 computer. I made a backup of them in all versions, plain, custom, tar and directory.
+(recently I found out that directory is actually a folder). To be able to restore this 
+backup I had to create a new database named postgres. (I made a new connection and then with 
+the default names on database and host and user I created one. Then I used the password
+that I initially entered to Dbeaver when I installed postgresql). This worked but when I 
+changed the database name to postgres_beth it didn't work. It only accepted the default 
+names. Then clicking on the name of the database and then right clicking it to Tools>Restore
+I entered all forms, plain, custom, tar except directory(cause it's asking for a folder and 
+I don't have that) one after the other checking if it will work. Somehow I though it didn't 
+because it was only able to import the public folder which did not have anything. Then 
+accidentally I created a new schema thinking I just have to import all tables and create 
+tables again tediously as before. I named this schema trial_2 and then there it was, the 
+trial table emerged from the new database I created. But I don't know which one actually 
+worked it is the plain, the tar or the custom. 
