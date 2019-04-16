@@ -5,7 +5,9 @@ backup I had to create a new database named postgres. (I made a new connection a
 the default names on database and host and user I created one. Then I used the password
 that I initially entered to Dbeaver when I installed postgresql). This worked but when I 
 changed the database name to postgres_beth it didn't work. It only accepted the default 
-names. Then clicking on the name of the database and then right clicking it to Tools>Restore
+names. 
+
+After creating the new database I clicked on the name of the database and then right clicked it to Tools>Restore
 I entered all forms, plain, custom, tar except directory(cause it's asking for a folder and 
 I don't have that) one after the other checking if it will work. Somehow I though it didn't 
 because it was only able to import the public folder which did not have anything. Then 
