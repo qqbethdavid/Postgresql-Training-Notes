@@ -1,3 +1,4 @@
+
 My newly created or restored schema does not accept geom because the postgis extension 
 is not set on this schema. 
 
@@ -25,3 +26,18 @@ run "CREATE EXTENSION postgis;" code
 
 and for further reading: 
 https://stackoverflow.com/questions/2875610/permanently-set-postgresql-schema-path
+
+I ACTUALLY DID RUN 
+CREATE EXTENSION POSTGIS;
+
+THEN I ALSO RAN:
+SET SEARCH_PATH TO <SCHEMA NAME>
+
+THEN I GOT PROBLEMS WITH QGIS SO I DID 
+
+SELECT POSTGIS_FULL_VERSION();
+AND 
+
+ALTER DATABASE POSTGRES SET SEARCH_PATH=TRIAL; 
+
+THEN 
