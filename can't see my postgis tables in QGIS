@@ -1,0 +1,25 @@
+The schema where you installed postgis looks non-standard. Looks like you have it installed in brondata schema 
+and that might not be in your database search_path. That would be the easiest issue to fix.
+
+It's also possible you managed to install two versions of postgis (an old 1.5 and a newer). Do the following:
+
+SELECT * FROM geometry_columns;
+
+That should return a listing of columns in your database with geometry. 
+I'm suspecting you might have two versions of PostGIS installed, and QGIS is reading the version not tied to 
+your data or the above query fails, which means you just don't have postgis functions, tables in your search_path.
+
+What does:
+
+SELECT postgis_full_version();
+
+Note that for PostGIS to work, you need to have it in your search path. 
+So if the above queries fail, it means you don't have the schema where postgis is installed in search path. Do an:
+
+ALTER DATABASE your_data_base SET search_path=public,brondata;
+
+Or alternatively if you installed PostGIS by accident in brondata, using extensions, you can move it with say:
+
+ALTER EXTENSION postgis SET SCHEMA public;
+
+I DID ALTER DATABASE. I THINK POSTGIS IS NOT IN MY TRIAL SEARCH PATH AND IT'S PROBABLY IN PUBLIC. 
