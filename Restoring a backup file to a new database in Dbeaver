@@ -12,4 +12,5 @@ because it was only able to import the public folder which did not have anything
 accidentally I created a new schema thinking I just have to import all tables and create 
 tables again tediously as before. I named this schema trial_2 and then there it was, the 
 trial table emerged from the new database I created. But I don't know which one actually 
-worked it is the plain, the tar or the custom. 
+worked it is the plain, the tar or the custom. Also it was only able to import a few 
+and not the actual tables that I was working on for Marine Layer 15. 
