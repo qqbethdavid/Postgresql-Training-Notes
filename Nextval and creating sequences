@@ -51,3 +51,6 @@ the returned sequence values will never be the same and never get reused (read t
 
 So you can be sure all the values of your primary keys will be generated unique within the table.
 
+
+source:
+https://stackoverflow.com/questions/36782006/postgresql-nextval
