@@ -1,0 +1,53 @@
+create table simple_area_cell_assign_temp
+(id int4 null, marine_layer_id int2 null, area_id int4 null, fao_area_id int2 null,
+cell_id int4 null, water_area float8 null);
+
+select * from simple_area_cell_assign_temp
+where marine_layer_id=15;
+
+delete from simple_area_cell_assign_temp
+where marine_layer_id=15; 
+
+insert into simple_area_cell_assign_temp
+(id, marine_layer_id, area_id, fao_area_id, cell_id, water_area)
+select id,
+15 marine_layer_id, 
+eez_id  area_id,
+fao_id fao_area_id,
+seq cell_id,
+water_area 
+from marine_layer15_eezv9_ices2016_2019_final
+group by 1,2,3,4,5,6; 
+
+---had a problem with nextval in id and srid in water area. this was not computed in this script.
+
+select * from simple_area_cell_assign_temp
+where (marine_layer_id=14) or (marine_layer_id=15)
+order by id asc;
+
+
+select count(*) from simple_area_cell_assign_temp;
+select count(*) from simple_area_cell_assignment_trial;
+
+
+alter table simple_area_cell_assign_temp
+alter column id set not null;
+
+alter table simple_area_cell_assign_temp
+alter column id set serial; 
+
+create sequence simple_area_cell_assign_temp_id_seq;
+
+ALTER SEQUENCE simple_area_cell_assign_temp_id_seq RESTART WITH 1;
+UPDATE simple_area_cell_assign_temp SET id=nextval('simple_area_cell_assign_temp_id_seq');
+
+alter table simple_area_cell_assign_temp
+add constraint simple_area_cell_assign_temp_pkey unique (id);
+
+-------
+select * from simple_area_cell_assign_temp
+where marine_layer_id=15
+order by id asc;
+
+select * from simple_area_cell_assign_temp
+order by id asc;
