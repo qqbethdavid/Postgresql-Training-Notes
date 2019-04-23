@@ -1,0 +1,53 @@
+I'm just starting to wade into backend development after my first few months on the job as a front end dev. 
+I'm working with postgreSQL and can't seem to wrap my head around the nextval() function. 
+I read this, but it's not clear to me. 
+http://www.postgresql.org/docs/current/interactive/functions-sequence.html what are the benefits/use cases for nexval()?
+
+
+NEXTVAL is a function to get the next value from a sequence.
+
+Sequence is an object which returns ever-increasing numbers, different for each call, regardless of transactions etc.
+
+Each time you call NEXTVAL, you get a different number.
+
+This is mainly used to generate surrogate primary keys for you tables.
+
+You can create a table like this:
+
+CREATE SEQUENCE mysequence;
+CREATE TABLE mytable (id BIGINT NOT NULL PRIMARY KEY, value INT);
+and insert values like this:
+
+INSERT
+INTO    mytable (id, value)
+VALUES
+        (NEXTVAL('mysequence'), 1),
+        (NEXTVAL('mysequence'), 2);
+    
+and see what you get:
+
+SELECT * FROM mytable;
+ id | value
+----+-------
+  1 |     1
+  2 |     2
+PostgreSQL offers a nice syntax sugar for this:
+
+CREATE TABLE mytable (id BIGSERIAL PRIMARY KEY, value INT);
+which is equivalent to
+
+CREATE SEQUENCE mytable_id_seq; -- table_column_'seq'
+CREATE TABLE mytable (id BIGINT NOT NULL PRIMARY KEY DEFAULT NEXTVAL('mytable_id_seq'), value INT); 
+-- it's not null and has a default value automatically
+and can be used like this:
+
+INSERT
+INTO    mytable (value)
+VALUES  (1),
+        (2);  -- you can omit id, it will get filled for you.
+        
+Note that even if you rollback your insert statement or run concurrent statements from two different sessions, 
+the returned sequence values will never be the same and never get reused (read the fine print in the docs though under CYCLE).
+
+So you can be sure all the values of your primary keys will be generated unique within the table.
+
