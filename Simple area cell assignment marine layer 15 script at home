@@ -117,5 +117,11 @@ select
 select * from simple_area_cell_assignment_raw
 where marine_layer_id=16; 
 
+----WHAT IS THE DIFFERENCE BETWEEN A PRIMARY KEY AND A UNIQUE KEY
+Primary Key--> None of the fields that are part of the primary key can contain a null value.
 
+Unique constraint --> Some of the fields that are part of the unique constraint can contain null values as long as 
+the combination of values is unique.
+
+source: https://www.techonthenet.com/postgresql/unique.php
 
