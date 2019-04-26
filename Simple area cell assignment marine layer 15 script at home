@@ -51,3 +51,71 @@ order by id asc;
 
 select * from simple_area_cell_assign_temp
 order by id asc;
+
+
+---------
+THE PROCEDURE THAT I DID WHEN I WORKED ON THE ACTUAL SIMPLE AREA CELL ASSIGNMENT RAW TABLE IN SAU_GEO
+
+I had to delete the primary key. I deleted both the simple_area_cell_assignment_raw_uk and the 
+simple_area_cell_assignment_pkey. You cannot be able to alter sequence or update the id to nextval
+if you still have these unique keys. You cannot either insert marine layer 15 if you still have this.
+
+But I was only able to restore the _pkey using the 'add constraint simple_area_cell_assignment_raw_pkey unique (id);
+I don't know how to restore the _uk. Once I dropped this I don't know how to get it back. So I settled only 
+with putting back up the pkey. It may work, I'm not sure. The moment I was writing this Gordon has not yet
+checked my work. 
+
+So first I truncated the simple area cell assignment raw in geo and replaced it with the updated one. 
+(Actually the one in sau_int was not updated so I replaced it with the same data that was previously in it
+which I saved in my personal database (beth postgres)). 
+
+After truncation I deleted the old marine layer 15 in simple area cell assignment raw
+Then I used the insert into script by Gordon (by then I have taken out the primary keys) 
+After this ran alter sequence to restart to 1
+Then update id to nextval (these two must go hand in hand. you'll notice that the id won't 
+restart yet to 1 if you won't run the update id) 
+
+Then I added the constraint again. But this time I was unable to add the _uk constraint only the _pkey.
+
+The following are my scripts: 
+
+truncate simple_area_cell_assignment_raw; 
+vacuum full analyze simple_area_cell_assignment_raw; 
+
+select count(*) from simple_area_cell_assignment_raw; 
+
+delete from simple_area_cell_assignment_raw
+where marine_layer_id=15; 
+
+select * from simple_area_cell_assignment_raw
+where marine_layer_id=15;
+
+insert into simple_area_cell_assignment_raw
+(id ,marine_layer_id, area_id, fao_area_id, cell_id, water_area)
+select nextval('simple_area_cell_assignment_raw_id_seq'::regclass),
+15 marine_layer_id,
+eez_id area_id,
+fao_id fao_area_id,
+seq cell_id,
+st_area(st_transform(geom, 98287))/1000000 water_area
+from marine_layer_15_ices_2016_eezv9_2019
+group by 1,2,3,4,5,6;
+
+alter sequence simple_area_cell_assignment_raw_id_seq restart with 1;  
+UPDATE simple_area_cell_assignment_raw SET id=nextval('simple_area_cell_assignment_raw_id_seq');
+
+
+alter table simple_area_cell_assignment_raw
+drop constraint simple_area_cell_assignment_raw_pkey; 
+
+alter table simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_pkey unique (id); 
+
+select 
+
+
+select * from simple_area_cell_assignment_raw
+where marine_layer_id=16; 
+
+
+
