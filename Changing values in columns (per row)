@@ -1,0 +1,22 @@
+USE THE UPDATE SYNTAX:
+
+UPDATE table
+SET column1 = value1,
+    column2 = value2 ,...
+WHERE
+ condition;
+
+
+
+
+
+
+update marine_layer_15_ices2016_eezv9_2019
+set area_27='14.b.1'
+where (id=490682) or (id=488953) or (id=488558)
+or (id=489788) or (id=487617) or (id=489778) or 
+(id=490236);
+
+update marine_layer_15_ices2016_eezv9_2019
+set area_27='12.b'
+where id=501122; 
