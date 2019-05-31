@@ -1,0 +1,20 @@
+select st_multi(st_union(st_snaptogrid(geom, 0.0001))) as geom, area_27
+into temp table ovate34
+from marine_layer_15_ices2016_eezv9_2019
+where area_27='3.a.20'
+group by area_27; 
+
+
+insert into ices_snap_to_grid_union
+(geom, area_27)
+select * from ovate34;
+
+
+
+
+
+
+
+SNAP TO GRID WAS USED SO THAT THE POLYGONS WILL NOT JUT OUT OF THE BOUNDARIES
+THIS WORKS FOR TWO COLUMNS. BUT WHEN YOU USE 3 COLUMNS THEN IT DOESN'T DISSOLVE
+THE SMALLER POLYGONS.
