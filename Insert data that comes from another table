@@ -1,0 +1,6 @@
+SYNTAX:  
+
+INSERT INTO table(column1,column2,...)
+SELECT column1,column2,...
+FROM another_table
+WHERE condition;
