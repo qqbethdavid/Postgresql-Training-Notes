@@ -19,3 +19,5 @@ alter sequence ices_dissolved_original_aagregates_seq rename to ices_dissolved_o
 
 
 
+source:  
+https://stackoverflow.com/questions/36361860/change-sequence-name-in-postgresql
