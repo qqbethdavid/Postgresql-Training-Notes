@@ -1,0 +1,9 @@
+select b.id, a.eez_id, a.fao_id, a.seq, b.area_27
+into temp table bard
+from marine_layer_15_ices2016_eezv9_2019 a 
+inner join ices_dissolved_original_aggregates b
+on a.area_27=b.area_27; 
+
+insert into ices_areas_original_with_aggregate_id_final_v1
+(aggregate_id, eez_id, fao_id, seq, area_27)
+select * from bard; 
