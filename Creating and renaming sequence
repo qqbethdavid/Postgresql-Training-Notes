@@ -1,0 +1,21 @@
+FIRST CREATE A SEQUENCE
+create sequence ices_dissolved_all_seq; 
+
+alter sequence ices_dissolved_all_seq restart with 1;
+update ices_dissolved_all 
+set id=nextval('ices_dissolved_all_seq');
+
+THE ABOVE WORKS BUT I DON'T KNOW ABOUT THIS
+
+create sequence ices_dissolved_all_seq; 
+alter table ices_dissolved_all
+alter id set default nextval('ices_dissolved_all_seq');
+
+RENAMING A SEQUENCE (IF YOU CHANGED THE NAME OF THE TABLE, THE NAME OF 
+THE SEQUENCE YOU CREATED DOES NOT CHANGE. IT REMAINS THE SAME AS THE 
+OLD NAME OF THE TABLE)
+
+alter sequence ices_dissolved_original_aagregates_seq rename to ices_dissolved_original_aggregates_seq; 
+
+
+
