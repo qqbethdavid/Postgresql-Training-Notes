@@ -1,0 +1,8 @@
+create sequence ices_dissolved_all_seq; 
+
+alter table ices_dissolved_all
+alter id set default nextval('ices_dissolved_all_seq');
+
+alter sequence ices_dissolved_all_seq restart with 1;
+update ices_dissolved_all 
+set id=nextval('ices_dissolved_all_seq'); 
