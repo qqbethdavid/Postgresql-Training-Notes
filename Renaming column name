@@ -1,0 +1,2 @@
+alter table ices_all_aggregates
+rename id to aggregate_id; 
