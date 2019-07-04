@@ -1,0 +1,63 @@
+IDENTIFY DUPLICATE CRITERIA
+
+The first step is to define your criteria for a duplicate row. Do you need a 
+combination of two columns to be unique together, or are you simply searching
+for duplicates in a single colmn? In this example, we are searching for 
+duplicates across two columns in our Users table: username and email. 
+
+
+WRITE QUERY TO VERIFY DUPLICATES EXIST
+The first querywe're going to write is a simple query to verify whetehr duplicates
+do indeed exist in the table. For our example, my query looks like this: 
+
+SELECT username, email, COUNT(*)
+FROM users
+GROUP BY username, email
+HAVING COUNT(*) > 1
+
+HAVING is important here because unlike WHERE, HAVING filters on aggregate functions.
+
+If any rows are returned, that means we have duplicates. IN this example, our results 
+look like this: 
+
+USERNAME   EMAIL         COUNT
+Pete      pete@example.com      2
+Jessica   jessica@example.com   2
+Miles     miles@example.com     2
+
+LIST ALL ROWS CONTAINING DUPLICATES
+
+In the previous step, our query returned a list of duplicates. Now, we want to return the 
+entire record for each duplicate row. 
+
+To accomplish this, we'll need to select the entire table and join that to our duplicate
+rows. Our query looks like this: 
+
+SELECT a.*
+FROM users a 
+JOIN (SELECT username, email, COUNT(*)
+FROM users
+GROUP BY username, email
+HAVING count(*) > 1) b 
+ON a.username = b.username
+AND a.email = b.email
+ORDER BY a.email
+
+
+If you look closely, you'll see that this query is not so complicated. The initial 
+SELECT simply selects every column in the users table, and then inner joins it with
+the duplicated data table from our initial query. Because we're joining the table to 
+itself, it's necessary to use aliases (here, we're using a and b) to label the two versions.
+
+Here is what our results look like for this query:
+
+ID    USERNAME    EMAIL
+1     Pete        pete@example.com
+6     Pete        pete@example.com
+12    Jessica     jessica@example.com
+13    Jessica     Jessica@example.com
+2     Miles       miles@example.com
+9     Miles       miles@example.com
+
+
+
