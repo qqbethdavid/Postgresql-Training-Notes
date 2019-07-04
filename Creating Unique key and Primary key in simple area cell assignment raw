@@ -1,0 +1,24 @@
+alter table simple_area_cell_assignment_raw
+drop constraint simple_area_cell_assignment_raw_pkey; 
+
+alter table simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_pkey primary key (id);
+
+alter table simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_uk unique (id); 
+
+
+I INITIALLY HAD ONLY AN ERRONEOUS CONSTRAINT IN THE SIMPLE AREA CELL ASSIGNMENT
+TABLE. 'SIMPLE_AREA_CELL_ASSIGNMENT_RAW_PKEY' WHICH IS CLASSIFIED AS 'UNIQUE'.
+THE CORRECT PKEY SHOULD BE CLASSIFIED AS 'PRIMARY KEY' BY DBEAVER AND THE 
+SIMPLE_AREA_CELL_ASSIGNMENT_UK SHOULD NOW BE THE 'UNIQUE' KEY. SOMETHING LIKE THIS:
+
+in the constraints tab it should look like this:
+
+Name                                    owner                               Type
+simple_area_cell_assignment_raw_pkey   simple_area_cell_assignment_raw      PRIMARY KEY
+simple_area_cell_assignment_raw_uk     simple_area_cell_assignment_raw      UNIQUE KEY
+
+
+
+
