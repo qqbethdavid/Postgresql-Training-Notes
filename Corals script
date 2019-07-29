@@ -1,5 +1,6 @@
 -------AN INNER JOIN WAS DONE BETWEEN WORLDSQ AND WORLD TABLE TO SEE IF WORLD TABLE
-(WHICH DOESN'T HAVE GEOM) IS THE SAME AS WORLDSQ (WHICH HAS GEOM). SO WE CAN 
+(WHICH DOESN'T HAVE GEOM) IS THE SAME AS WORLDSQ (WHICH HAS GEOM) AND TO MAKE SURE 
+WE ARE GETTING THE RIGHT DATA. SO WE CAN 
 INTERSECT THE GEOMETRIES OF WORLD TABLE WITH THE CORAL SHAPEFILE
 
 select a.gid, a.seq, b.cell_id, a.lat, a.lon, b.water_area, b.meow_id, a.geom
@@ -8,8 +9,8 @@ from worldsq a
 inner join world b on a.gid=b.cell_id; 
 
 
-------A TABLE WAS CREATED TO HOUSE THE RESULT; NOTE THAT MEOW_ID IS A FLOAT NOT AN 
-INTEGER. I SIMPLY FOLLOWED WHAT WAS ON WORLD TABLE. 
+-------A TABLE WAS CREATED TO HOUSE THE RESULT; NOTE THAT MEOW_ID IS A FLOAT NOT AN 
+INTEGER. I SIMPLY FOLLOWED WHAT WAS ON WORLD TABLE.(later on i changed the float to integer) 
 
 create table worldsq_x_world
 (gid int4 null, seq int4 null, cell_id int4 null, lat float8 null, lon float8 null, 
@@ -20,12 +21,24 @@ insert into worldsq_x_world
 select * from bard;
 
 ---THEN THE WORLDSQ_X_WORLD SHAPEFILE WAS INTERSECTED WITH UNEP-WCMC CORAL SHAPEFILE
+IN ARCGIS
 AND THEN THE RESULTANT SHAPEFILE IS TO BE TRANSPOSED INTO PROJECTED SYSTEM SRID USING THE GEOM
 SO AS TO COMPUTE FOR THE AREA. AND WE USE THE FOLLOWING SCRIPT FOR THIS:
 
 select climate_zone, meow_id,
 st_area(st_transform(geom,98287))/1000000 area
 from climateandmeow2;
+
+-----HERE IS THE EXACT SCRIPT: 
+
+select worldsq_gi, seq, cell_id,
+st_area(st_transform(geom,98287))/1000000 area
+into temp table bard
+from coralwgs84_x_worldsqworld_intersected;
+
+insert into coralwgs84_x_worldsqworld_geomtoarea
+(worldsq_gi, seq, cell_id, area)
+select * from bard; 
 
 
 ---YOU MUST ALSO USE THE FOLLOWING SYNTAX TO SUM ALL THE AREAS IN EACH CELL. 
@@ -36,3 +49,33 @@ FROM
    [TABLENAME]
 GROUP BY
    WORLDSQ_GID;
+   
+------HERE IS THE EXACT SCRIPT:
+
+select worldsq_gi, sum(area)
+into temp table bard1
+from coralwgs84_x_worldsqworld_geomtoarea
+group by worldsq_gi; 
+
+insert into coral_sum_area
+(worldsq_gi, sum)
+select * from bard1; 
+
+---AFTER THIS YOU WILL HAVE A RESULTANT SUM OF AREAS FOR THE CELL_ID OF THE WORLD TABLE
+AND THE ROWS ARE AT 3,000+
+THIS REPRESENTS ONLY THE CELLS WHICH HAVE CORRESPONDING CORALS. THERE ARE OF COURSE 
+CELLS WHICH DO NOT HAVE CORAL AREAS AND BECAUSE OF THIS WE WILL NEED TO LEFT JOIN THE 
+CORAL_SUM_AREA TABLE WITH THE WORLD TABLE ITSELF SO THAT WE WILL KNOW WHICH CELLS IN 
+THE WORLD TABLE HAVE CORALS AND WHICH ONES DO NOT. THESE ARE THE ACTUAL SCRIPTS:
+
+create table world_coralsum
+(worldsq_gi int4 null, sum float8 null);
+
+select a.cell_id, b.sum 
+from world a
+left join world_coralsum b
+on a.cell_id=b.worldsq_gi;
+
+----THIS CREATED A TABLE WITH COLUMNS CELL_ID AND SUM WITH SOME SUM PARTS LEFT BLANK AND SOME 
+WITH VALUES. THE ONES WITHOUT VALUES ARE THE ONES WITHOUT CORAL AREAS. 
+
