@@ -18,3 +18,7 @@ water_area float8 null, meow_id float8 null, geom geometry null);
 insert into worldsq_x_world
 (gid, seq, cell_id, lat, lon, water_area, meow_id, geom)
 select * from bard;
+
+---THEN THE WORLDSQ_X_WORLD SHAPEFILE WAS INTERSECTED WITH UNEP-WCMC CORAL SHAPEFILE
+AND THEN THE RESULTANT SHAPEFILE IS TO BE TRANSPOSED INTO PROJECTED SYSTEM SRID USING THE GEOM. 
+
