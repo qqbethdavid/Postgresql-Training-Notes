@@ -1,0 +1,20 @@
+-------AN INNER JOIN WAS DONE BETWEEN WORLDSQ AND WORLD TABLE TO SEE IF WORLD TABLE
+(WHICH DOESN'T HAVE GEOM) IS THE SAME AS WORLDSQ (WHICH HAS GEOM). SO WE CAN 
+INTERSECT THE GEOMETRIES OF WORLD TABLE WITH THE CORAL SHAPEFILE
+
+select a.gid, a.seq, b.cell_id, a.lat, a.lon, b.water_area, b.meow_id, a.geom
+into temp table bard
+from worldsq a
+inner join world b on a.gid=b.cell_id; 
+
+
+------A TABLE WAS CREATED TO HOUSE THE RESULT; NOTE THAT MEOW_ID IS A FLOAT NOT AN 
+INTEGER. I SIMPLY FOLLOWED WHAT WAS ON WORLD TABLE. 
+
+create table worldsq_x_world
+(gid int4 null, seq int4 null, cell_id int4 null, lat float8 null, lon float8 null, 
+water_area float8 null, meow_id float8 null, geom geometry null);
+
+insert into worldsq_x_world
+(gid, seq, cell_id, lat, lon, water_area, meow_id, geom)
+select * from bard;
