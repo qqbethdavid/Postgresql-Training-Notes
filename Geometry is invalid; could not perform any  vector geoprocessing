@@ -1,0 +1,15 @@
+-----I found out that the tm_worldborders-0.3 has invalid geometries. I am yet to understand what these
+invalid geometries are. That means there are parts of the geom that have problem with vertices. 
+Appartently you can make it valid using the st_makevalid command in postgis but I checked this out 
+in Dbeaver and it doesn't seem to work. It is not even listed in the commands that come up whenever you 
+type them. But an alternate syntax does st_isvalid. This one worked in Dbeaver. 
+I checked this using the following script.
+
+select geom from tm_world_borders_03
+where st_isvalid(geom)= false;
+
+
+-----This gave me 4 geometries. These are probably the problematic geometries. Now I am trying to find a
+resolution to this on how I can make these geometries valid. 
+
+
