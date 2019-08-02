@@ -1,15 +1,23 @@
 -----I found out that the tm_worldborders-0.3 has invalid geometries. I am yet to understand what these
-invalid geometries are. That means there are parts of the geom that have problem with vertices. 
-Appartently you can make it valid using the st_makevalid command in postgis but I checked this out 
-in Dbeaver and it doesn't seem to work. It is not even listed in the commands that come up whenever you 
-type them. But an alternate syntax does st_isvalid. This one worked in Dbeaver. 
+invalid geometries are. That means there are parts of the geom that have problem with vertices. Or they are 
+a ring and they self-intersect.
+Apparently you can make it valid using the st_makevalid command in postgis. I checked this out 
+in Dbeaver although it does not show in the drop down of commands, this command works. 
+Ann alternate syntax is st_isvalid. This one also worked in Dbeaver. 
 I checked this using the following script.
 
 select geom from tm_world_borders_03
 where st_isvalid(geom)= false;
 
+-----This helps to see which of your geometries have invalid geoms in it. 
+-----This gave me 4 geometries. These are probably the problematic geometries. 
 
------This gave me 4 geometries. These are probably the problematic geometries. Now I am trying to find a
-resolution to this on how I can make these geometries valid. 
+Then I made them valid using st_makevalid. The following is the script
+
+update tm_world_borders_03
+set geom=st_makevalid(geom)
+where (un=124) or (un=152) or (un=578) or (un=643); 
+
+Then I checked again using the first script and I have no more invalid geometries. 
 
 
