@@ -1,0 +1,62 @@
+select id, st_multi(st_union(geom)) as geom 
+from union_hudson_iccat_qgis
+group by id; 
+
+select a.gid, a.id, a.name, a.rfmo_id, st_multi(st_union(a.geom, b.geom)) as geom
+into temp table bard
+from iccat_sau_geo a, hudson_complex_unrefined2_exported b 
+group by a.gid, a.id, a.name, a.rfmo_id, a.geom, b.geom; 
+
+create table union_hudson_iccat_postgis
+(gid int4 null, id float8 null, name varchar(50) null, rfmo_id float8 null, 
+geom geometry null); 
+
+insert into union_hudson_iccat_postgis
+(gid, id, name, rfmo_id, geom)
+select * from bard; 
+
+select * from iccat_sau_geo
+where st_isvalid(geom)=false;
+
+update iccat_sau_geo
+set geom=st_makevalid(geom);
+
+ALTER TABLE iccat_sau_geo ALTER COLUMN geom 
+    SET DATA TYPE geometry(MultiPolygon) USING ST_Multi(geom);
+ 
+ALTER TABLE iccat_sau_geo ALTER COLUMN geom SET DATA TYPE geometry;
+
+select gid, id, name, rfmo_id, st_area(st_transform(geom, 98287))/1000000 area 
+into temp table bard1
+from union_hudson_iccat_postgis; 
+
+create table union_hudson_iccat_postgis_with_area 
+(gid int4 null, id float8 null, name varchar(50) null, rfmo_id float8 null,
+area float8 null); 
+
+
+
+insert into union_hudson_iccat_postgis_with_area 
+(gid, id, name, rfmo_id, area)
+select * from bard1; 
+
+select id,   
+sum(st_length(st_transform(geom, 98287)))/1000 length
+from union_hudson_iccat_postgis
+group by id; 
+
+select gid, id, name, rfmo_id, 
+st_area(st_transform(geom, 98287)) area 
+from union_hudson_iccat_postgis; 
+
+UPDATE union_hudson_iccat_postgis 
+set geom  = ST_SetSRID(geom, 98287);
+
+alter table union_hudson_iccat_postgis_with_area
+rename area to area_km2; 
+
+alter table union_hudson_iccat_postgis_with_area
+add column shape_length float8 null; 
+
+update union_hudson_iccat_postgis_with_area
+set shape_area=88739715742941.0500; 
