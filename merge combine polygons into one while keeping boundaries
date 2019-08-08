@@ -1,0 +1,17 @@
+https://stackoverflow.com/questions/24184927/postgis-merge-multipolygons-and-keeping-boundaries
+
+merge multipolygons and keeping boundaries. 
+
+---This works for me for a few test polygons I threw together. 
+It uses an ST_Dump trick to unmerge the geometry collection that otherwise results from the inner query, 
+aliased as table c, and then recollects the geometries using ST_Multi(ST_Collect(geom...). 
+The inner query combines the intersection of the two sets of geometries with the difference of the intersection and the union.
+
+select ST_multi(ST_Collect(d.geom)) 
+  from (select (ST_Dump(c.geom)).geom 
+    from (select ST_Collect(ST_Intersection(a.geom, b.geom),
+            ST_SymDifference(ST_Intersection(a.geom, b.geom),
+            ST_Union(a.geom, b.geom))) as geom 
+        from lower_geom a, higher_geom b)
+   as c)
+ as d;
