@@ -116,8 +116,14 @@ drop constraint simple_area_cell_assignment_raw_pkey;
 alter table simple_area_cell_assignment_raw
 add constraint simple_area_cell_assignment_raw_pkey unique (id); 
 
-select 
+----THIS ONE I THINK WAS USED TO CONSTRUCT BOTH THE PRIMARY KEY AND THE UNIQUE KEY
+alter table simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_pkey primary key (id); 
 
+alter table simple_area_cell_assignment_raw
+add constraint simple_area_cell_assignment_raw_uk unique (id); 
+
+------
 
 select * from simple_area_cell_assignment_raw
 where marine_layer_id=16; 
