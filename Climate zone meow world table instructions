@@ -1,0 +1,8 @@
+Deng needs MEs classified by climate zones in order to get catch by climate zone. To do this, it would be preferable to assign every cell in the world table to a climate zone. Therefore a cell assignment needs to be done.
+
+Instructions:
+1.	Load climate zone shape files into QGIS.
+2.	Merge them into one shapefile.
+3.	Upload to sau_geo using PostGIS.
+4.	st_intersect with new_cells_for_cell_assignment
+5.	Join results with the world table
