@@ -6,3 +6,24 @@ Instructions:
 3.	Upload to sau_geo using PostGIS.
 4.	st_intersect with new_cells_for_cell_assignment
 5.	Join results with the world table
+
+
+---THERE IS A PROBLEM WITH THE CLIMATE ZONE SHAPEFILE. IT HAS GAPS IN BETWEEN EACH
+POLYGON. SO WHENEVER I DO A UNION AND THEN INTERSECT THE RESULTS OF THAT UNION WITH 
+ANOTHER FILE THERE WOULD BE ITEMS WHERE THERE ARE NO VALUES BECAUSE THESE GAPS DON'T 
+HAVE VALUES. IT WAS NEVER FOUND OUT PROBABLY BECAUSE MOST OF THE TIME THEY WOULD 
+PERFORM ONLY INTERSECTIONS BETWEEN THE CLIMATE ZONE SHAPEFILE AND ANOTHER SHAPEFILE. 
+BUT A UNION IS NEVER DONE YET. NOW I SEE IT HAS INCONSISTENT GEOMETRIES.
+
+WHAT I DID:
+I checked if this can be done in qgis. It can be done but I would need to set up GRASS
+which I don't have time at all. It can also be done in ArcGIS using the INTEGRATE tool
+(integrate/data management) and another tool that was mentioned the ELIMINATE tool. I 
+opted for the integrate tool. At first I didn't know what xy tolerance to use so I put
+in 0.01. This was too small. It didn't work at all. Remember also that the integrate 
+tool behaves according to the tolerance you enter and also it is based on the srid of 
+the polygon you're working on (if it's using degrees or meters as units). In my case I 
+was using decimal degree units. Next I tried entering 0.1 tolerance but it was too much
+the sides of the polygon were getting deformed. So I tried 0.05 and I think this was enough.
+I checked the sides and there were not much deformities and the gaps were corrected. 
+
