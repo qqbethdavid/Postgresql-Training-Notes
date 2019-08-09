@@ -1,0 +1,13 @@
+st_union doesn't work well anymore if you're using large sets of data. 
+It works in small polygons but sometimes if you have world data that is very 
+complicated it gives an incomplete result. Better to do that in QGIS. In QGIS 
+though sometimes union of geometries do not work because there are invalid 
+geometries in the polygon. Also check if you have duplicate names of columns. 
+In my case there were two columns that have the same name, there were two id
+columns. 
+
+Merge in QGIS is just combinging the rows not intersecting and then combining. If 
+you want to cross the first polygon with the second polygon   you will need union. 
+Merge just adds the rows of one polygon to the other. 
+
+
