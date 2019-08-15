@@ -27,3 +27,61 @@ was using decimal degree units. Next I tried entering 0.1 tolerance but it was t
 the sides of the polygon were getting deformed. So I tried 0.05 and I think this was enough.
 I checked the sides and there were not much deformities and the gaps were corrected. 
 
+
+------script that was used to create intersection of climatezonemeow and new cells for cell assignment:
+
+------stop
+select c.gid, d.meow_id, d.layer, c.seq, c.geom  
+into temp table ovate
+from (select a.gid, b.seq, 
+st_collectionextract(st_intersection(a.geom, b.geom), 3) as geom 
+from climatezone_meow_union_v1 a, new_cells_for_cell_assignment_sau_geo b 
+where st_intersects(a.geom, b.geom)
+group by a.gid, b.seq, a.geom, b.geom) 
+as c
+inner join climatezone_meow_union_v1 d 
+on c.gid=d.gid;
+-------stop
+
+insert into climatemeow_with_newcellsforassign
+(gid, meow_id, layer, seq, geom)
+select * from ovate; 
+
+-----create table
+create table  climatemeow_with_newcellsforassign 
+(gid int4 null, meow_id int4 null, layer varchar(100) null, seq int8 null, geom geometry null); 
+
+
+select * from climatezone_meow_union_v1
+where st_isvalid(geom)=false; 
+
+update climatezone_meow_union_v1
+set geom=st_makevalid(geom)
+where (gid=44) or (gid=70) or (gid=108) or (gid=153) or (gid=333);  
+
+select * from climatezone_meow_union_v1
+where (gid=44) or (gid=70) or (gid=108) or (gid=153) or (gid=333);
+
+drop table climatemeow_x_newcellsforcellassign;
+
+select count(*) from climatemeow_with_newcellsforassign;
+select count(*) from new_cells_for_cell_assignment_sau_geo;
+
+select * from meow_from_sau_geo
+where meow_id=89; 
+
+
+select seq, count(*) 
+from climatemeow_with_newcellsforassign
+group by seq
+having count(*) >1; 
+
+delete from climatemeow_with_newcellsforassign
+where (select seq 
+from climatemeow_with_newcellsforassign
+group by seq
+having count(*) >1); 
+
+select seq, st_multi(st_union(geom))
+from climatemeow_with_newcellsforassign
+group by seq; 
