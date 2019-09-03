@@ -1,0 +1,66 @@
+CASTING A DATE FROM VARCHAR TO DATA TYPE DATE
+
+alter table smt_2019_copy alter column "Date" 
+type date using to_date("Date", 'MM/DD/YYYY'); 
+
+IN THE PARENTHESIS, YOU NEED TO PUT THE ORIGINAL FORMAT OF THE DATE THE FIRST TIME 
+YOU WROTE IT DOWN. AS FOR ME, I PUT SLASHES IN IT. IF IN CASE YOU INITIALLY USED 
+A DASH YOU SHOULD PUT DASHES INSTEAD.
+
+E.G.
+alter table smt_2019_copy alter column "Date" 
+type date using to_date("Date", 'MM-DD-YYYY'); 
+
+AND ALWAYS WRITE THE DATE ALSO IN THE SAME SEQUENCE YOU WROTE IT DOWN IN THE FIRST PLACE. 
+
+
+THIS ONE HOWEVER DID NOT WORK:
+alter table smt_2019_copy alter "Date" 
+type date using("Date"::date); 
+
+
+THE SYNTAX FOR TYPECASTING IS: 
+alter table table_name alter column_name 
+   type converting_data_type using(column_name::converting_data_type)
+
+E.G.
+alter table table_name 
+  alter column_name type date using(column_name::date)
+  
+
+HOW TO CONVERT COLUMN TYPE FROM VARCHAR TO DATE IN POSTGRESQL
+
+ALTER TABLE <tablename> ALTER COLUMN <columnname> TYPE DATE 
+using to_date(<columnname>, 'YYYY-MM-DD');
+
+SOURCE: https://stackoverflow.com/questions/2592412/how-to-convert-column-type-from-varchar-to-date-in-postgresql
+
+
+ERROR IN CASTING DATE POSTGRESQL
+I'm trying to cast a varchar into a date with this following code, and the following error is outputting, any idea why?
+
+ALTER TABLE import.employee
+ALTER COLUMN birth_date
+TYPE date
+
+ERROR:  date/time field value out of range: "05/29/1960"
+HINT:  Perhaps you need a different "datestyle" setting.
+********** Error **********
+
+ERROR: date/time field value out of range: "05/29/1960"
+SQL state: 22008
+Hint: Perhaps you need a different "datestyle" setting.
+
+ANSWERS:
+
+Set the datestyle before:
+
+set datestyle = mdy;
+USING (birth_date::date);
+
+Or using (to_date(birth_date, 'MM/DD/YYYY')) if you don't want to mess around with or worry about connection settings.
+
+If you need to get the ::date from birth_date, first give the DATE format to your field using the given functions in 
+https://www.postgresql.org/docs/8.1/functions-formatting.html
+
+SOURCE: https://stackoverflow.com/questions/23328882/error-in-casting-date-postgresql
