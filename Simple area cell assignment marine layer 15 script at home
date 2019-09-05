@@ -136,3 +136,14 @@ the combination of values is unique.
 
 source: https://www.techonthenet.com/postgresql/unique.php
 
+
+
+create sequence is also the same as creating an id with a serial data type 
+and designated as primary key. 
+
+create table marine_layer_22_pew_pbol_mpas_2019_v2
+(id serial primary key, pbol_id int4 null, name varchar(100), eez_id int4 null, 
+eez_name varchar(254) null, seq int8 null, geom geometry null, fao_area int4 null); 
+
+This produces the same table characteristics: having a nextval with a green check 
+in the id column, having a constraint with a name and designated as a primary key. 
