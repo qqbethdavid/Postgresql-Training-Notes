@@ -1,0 +1,16 @@
+This happened to me several times while transferring new cells to simple area cell 
+assignment raw. I would get id sequences which may ran from 1, 2, 3, 4, 5, 156, 157, 6, 7.
+Something like that. They are not in sequence even if I ran the update set id=nextval 
+script. The problem with this was because the table I was trying to insert is not arranged at all.
+It neither does have a primary key or a unique key or an id column that has these characteristics. 
+I thought that it is probable that they are not in sequence because I did not even arrange the 
+table I entered by putting up unique id values to it so any row can go anywhere and the simple
+area cell assignment table sequence gets skewed. 
+
+What I did was put an id column with primary keys in it. I created a table with an id and set 
+the datatype to serial primary key and transferred all the contents of the table to this new
+table with the auto-incremental id column.
+
+create table marine_layer_22_pew_pbol_mpas_2019_v2
+(id serial primary key, pbol_id int4 null, name varchar(100), eez_id int4 null, 
+eez_name varchar(254) null, seq int8 null, geom geometry null, fao_area int4 null); 
