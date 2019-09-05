@@ -21,3 +21,8 @@ alter sequence ices_dissolved_original_aagregates_seq rename to ices_dissolved_o
 
 source:  
 https://stackoverflow.com/questions/36361860/change-sequence-name-in-postgresql
+
+DRAWBACKS:
+You cannot rename a sequence anymore if you started out creating your table using 
+the serial datatype in ids. Because in the first place you did not use the 'create sequence'
+syntax at all and your table auto-incremented only because you used the serial datatype. 
