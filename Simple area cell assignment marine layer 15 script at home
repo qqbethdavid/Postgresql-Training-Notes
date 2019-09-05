@@ -147,3 +147,8 @@ eez_name varchar(254) null, seq int8 null, geom geometry null, fao_area int4 nul
 
 This produces the same table characteristics: having a nextval with a green check 
 in the id column, having a constraint with a name and designated as a primary key. 
+
+Remember that the table that you need to enter into simple area cell assignment must 
+have been arranged with an id and a primary key to boot because if not, then you won't 
+see the ascending arrangement of the simple area cell assignment even if you have 
+arranged the sequences using the update nextval. 
