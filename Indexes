@@ -1,0 +1,3 @@
+creating indexes (for the case of rfmo_sau_geo to be transferred to qa sau.geo.rfmo:
+
+CREATE UNIQUE INDEX rfmo_rfmo_id_idx ON rfmo USING btree (rfmo_id);
