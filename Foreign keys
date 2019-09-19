@@ -73,4 +73,25 @@ THERE INCLUDING THE NECESSARY INFORMATION ABOUT RFMO NUMBER 19 BEFORE I CAN ADD 
 
 AFTER ADDING RFMO NUMBER 19 IN SAU.WEB.RFMO THE ABOVE SCRIPT ON ADDING FOREIGN KEYS WORKED.  
 
+THIS IS THE DDL OF THE ORIGINAL RFMO TABLE IN SAU_GEO:
+
+CREATE TABLE geo.rfmo (
+	gid serial NOT NULL,
+	"name" varchar(15) NULL,
+	rfmo_id int4 NOT NULL,
+	area_km2 numeric NULL,
+	shape_length numeric NULL,
+	shape_area numeric NULL,
+	geom geometry(MULTIPOLYGON, 4326) NULL,
+	CONSTRAINT rfmo_pkey PRIMARY KEY (gid)
+);
+CREATE INDEX rfmo_geom_idx ON rfmo USING gist (geom);
+CREATE UNIQUE INDEX rfmo_rfmo_id_idx ON rfmo USING btree (rfmo_id);
+
+-- Permissions
+
+ALTER TABLE geo.rfmo OWNER TO sau_geo;
+GRANT ALL ON TABLE geo.rfmo TO sau_geo;
+
+
 
