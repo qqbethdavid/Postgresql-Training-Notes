@@ -1,0 +1,20 @@
+INITIALLY, WE TRANSFERRED FIRST RFMO_SAU_GEO TO QA SAU SO THAT WE CAN USE SCRIPTING TO 
+TRANSFER THE CONTENTS.
+
+CREATE INDEX rfmo_sau_geo_geom_idx ON rfmo_sau_geo USING gist (geom);
+CREATE UNIQUE INDEX rfmo_sau_geo_rfmo_id_idx ON rfmo_sau_geo USING btree (rfmo_id);
+
+create sequence rfmo_sau_geo_gid_seq; 
+
+alter table rfmo_sau_geo
+alter gid set default nextval('rfmo_sau_geo_gid_seq');
+
+alter sequence rfmo_sau_geo_gid_seq restart with 1;
+update rfmo_sau_geo 
+set gid=nextval('rfmo_sau_geo_gid_seq'); 
+
+ALTER TABLE geo.rfmo_sau_geo ADD CONSTRAINT rfmo_sau_geo_rfmo_id_fk
+FOREIGN KEY (rfmo_id) REFERENCES web.rfmo(rfmo_id) ON DELETE CASCADE;
+
+alter table rfmo_sau_geo
+	add CONSTRAINT rfmo_rfmo_id_fk FOREIGN KEY (rfmo_id) REFERENCES web.rfmo(rfmo_id) ON DELETE CASCADE
