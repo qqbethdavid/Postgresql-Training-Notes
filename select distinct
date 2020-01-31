@@ -1,0 +1,5 @@
+#PUTTING 'DISTINCT' IN FRONT OF COLUMN NAMES, THIS COMMAND IS APPLIED TO ALL COLUMNS EVEN IF
+ONLY TYPED ONCE BEFORE THE LIST OF COLUMNS
+
+select DISTINCT speciesid, speccode, genus, species from pitcairn_veron_x_pitcairn_nina_fb
+order by speccode;
