@@ -1,0 +1,3 @@
+select * from pitcairn_fb_finalcount
+where (speciesid) in (select speciesid from pitcairn_fb_finalcount b
+group by speciesid having count(*) < 20);
