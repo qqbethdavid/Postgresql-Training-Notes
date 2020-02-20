@@ -1,0 +1,9 @@
+alter table <table name>
+alter column <column name> type <new data type>
+
+THIS ALSO WORKS IF YOU HAVE TO CHANGE DATATYPE OF MANY COLUMNS
+
+alter table eez_v9_x_rfmo
+alter column area_km2_2 type float8,
+alter column shape_leng type float8, 
+alter column shape_area type float8;
