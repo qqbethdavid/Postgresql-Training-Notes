@@ -1,0 +1,28 @@
+I had a problem of geometries not having any srids 
+It was because I created a new schema in my postgres
+Database in Kraken. This new schema which I named "recon"
+is not the default schema. I put all the 
+geometries in this recon schema. It turn out it doesn't have 
+Postgis in it. The default schema is "public".
+So the CREATE EXTENSION POSTGIS command/script did not 
+Work on the recon. This script once you execute this
+gets applied in the public schema and probably nowhere 
+else. I did not experience this in the postgis installation
+in my personal laptop or the pc at the office. Postgis
+seem to work in all schemas there. It's  really frustrating.
+So I just transferred all the shapefiles in the public schema.
+
+Also to be able to put srid in geometry that has 0 srid 
+You need this script: 
+
+Select updategeometrysrid('schema', 'table', 'geom column', 4326);
+
+I changed srid to wgs84.
+You can't change it using st_setsrid function. Apparently, 
+it's a different one.
+
+To check if the shapefile has srid
+
+Select find_srid(schema, table, geom column);
+
+
