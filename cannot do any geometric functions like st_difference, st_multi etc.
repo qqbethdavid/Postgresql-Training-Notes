@@ -1,0 +1,29 @@
+Everytime I try to run this 
+
+select a.id, a.rfmo_name, b.objectid, st_multi(st_difference(a.geom, b.geom))
+from recon.iccat_6_geometry a, recon.bigmap_july_2016 b 
+limit 10;
+
+it says:  
+
+ERROR:  function st_difference(public.geometry, public.geometry) does not exist
+LINE 5: WHERE ST_difference (a.geometry, b.geometry);
+
+HINT:  No function matches the given name and argument types. You might need to add   explicit type casts.
+
+ANSWER: 
+
+Your problem is that you have excluded the public schema from the search_path. All functions and types is in the public schema (by default)
+
+So what you have to do is just include the public schema in the search_path
+
+SET search_path TO recon, public;
+
+means that the database will write to recon if you don't give any schema
+
+SET search_path TO public, recon;
+
+means that the database will write to public if no schema is given.
+
+But in both cases both schemas will be searched for tables, functions and so on
+          ^
