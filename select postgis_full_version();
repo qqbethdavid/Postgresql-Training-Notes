@@ -1,3 +1,0 @@
-This script I used because the postgis is not working on postgresql. 
-
-select postgis_full_version();

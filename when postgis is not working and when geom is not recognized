@@ -1,0 +1,20 @@
+This script I used because the postgis is not working on postgresql. 
+
+select postgis_full_version();
+
+OR WHEN YOU GET THIS ERROR:
+
+SQL Error [42704]: ERROR: extension "postgis" does not exist
+
+THEN click on your database first and then execute this THIS: 
+
+create extension postgis;
+
+Note that this is specific to a particular database that you are using. It is not installation-wide. 
+
+
+or you can do it from terminal:
+psql mydatabasename -c "CREATE EXTENSION postgis";
+
+
+SOURCE:  https://stackoverflow.com/questions/6850500/postgis-installation-type-geometry-does-not-exist
