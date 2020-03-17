@@ -1,0 +1,23 @@
+I was trying to dissolve and unionize 
+the geometries of multiple geoms of a table, particularly 
+eezs (each eezs should only be one geom). Then 
+I got this error:
+
+SQL Error [XXX000]: ERROR GEOSUnaryUnion: topologyException
+Input geom 1 is invalid: Ring Self-intersection at or near
+Point 121.9504 29.5123 at 121.9504 29.51234, etc. 
+
+So I got this solution. There are invalid geometries 
+In the geom.
+
+UPDATE {table name} 
+Set geom=st_makevalid(geom) 
+WHERE NOT st_isvalid(geom) 
+
+Here with this script I corrected first all
+The geometries in that table. And then 
+after that I ran the script for the union. 
+This worked. 
+
+Source: 
+https://gis.stackexchange.com/questions/190296/how-to-deal-with-error-geosunaryunion-topologyexception-self-intersection
