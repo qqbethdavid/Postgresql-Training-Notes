@@ -1,0 +1,3 @@
+alter table nc_slb_combine_x_hcaf_withseq 
+alter column probability type float8 
+using (probability::double precision); 
