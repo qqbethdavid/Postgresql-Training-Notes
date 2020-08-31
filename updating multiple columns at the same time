@@ -1,0 +1,7 @@
+select eezv11_x_fao
+set layer='SAU_EEZ_v11_Aug2020', 
+path='C:\Ate\Work\Allocation\EEZ_v11',
+fao_area='61',
+ocean=2,
+fao_name='NW Pacific'
+where fao_area is null;
