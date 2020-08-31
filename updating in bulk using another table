@@ -1,0 +1,9 @@
+you can use this. I used this in Recon families script
+
+update taxon_prodsau_int_copy
+set has_extent='TRUE'
+from batch5_to8_from_office
+where taxon_prodsau_int_copy.scientific_name = batch5_to8_from_office.scientific_name;
+
+batch5_to8_from_office is the table that you newly created. The list of species that you 
+want updated in the main table which is the taxon_prodsau_int_copy. 
