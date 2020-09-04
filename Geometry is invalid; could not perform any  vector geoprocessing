@@ -21,3 +21,19 @@ where (un=124) or (un=152) or (un=578) or (un=643);
 Then I checked again using the first script and I have no more invalid geometries. 
 
 
+
+
+BATCH UNION OF SEVERAL GEOMETRIES (THOSE MORE THAN 2). WE CREATE A TABLE AND PUT ALL THE GEOMS WHICH ARE INVALID IN THERE.
+THEN WE JOIN THAT TABLE WITH THE MASTER TABLE WHICH WE WANT TO EDIT THE GEOMS IN THE FIRST PLACE. 
+
+select gid, geom from eezv11_x_fao
+where st_isvalid(geom)= false;
+
+
+update eezv11_x_fao
+set geom=st_makevalid(geom)
+from invalid_geoms
+where eezv11_x_fao.gid=invalid_geoms.gid; 
+
+
+
