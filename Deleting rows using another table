@@ -1,0 +1,36 @@
+This example has a with clause:
+
+with moved_rows as 
+(delete from eezv11_x_fao 
+where eezv11_x_fao.gid in (select eez_ids_to_delete.gid from eez_ids_to_delete)
+returning *)
+insert into transferred_duplicate_rows
+(select * from moved_rows);
+
+
+
+the generic script is:
+
+DELETE FROM Table1
+WHERE Table1.id IN (SELECT Table2.id FROM Table2);
+
+
+Other solutions:
+DELETE FROM Table1
+WHERE EXISTS ( SELECT 1 FROM Table2 WHERE Table1.id = Table2.id
+
+
+Using an inner join to delete (I haven't tried this yet):
+
+DELETE Table1 
+FROM Table1 
+INNER JOIN Table2 ON Table1.id = Table2.id
+
+
+
+Another way:
+
+DELETE FROM t1
+USING t2 
+WHERE t1.id=t2.id
+
