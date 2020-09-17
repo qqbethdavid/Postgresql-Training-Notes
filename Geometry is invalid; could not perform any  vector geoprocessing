@@ -36,4 +36,30 @@ from invalid_geoms
 where eezv11_x_fao.gid=invalid_geoms.gid; 
 
 
+FOR THE CASE OF THE MAKE VALID GEOM SCRIPT NOT WORKING 
 
+This happened to me while working on the layer 3 specie. I looked for the invalid geoms using st_isvalid(geom)= false
+and then after running the make valid geom script (st_makevalid(geom)) it did not work. It is because my shapefiles 
+were reconstructed using mapshaper in mapshaper.org to make it smaller. The file size was lowered but errors seem to 
+abound in the shapefile vertices probably due to intersections etc. 
+
+What I did was this: 
+
+I ran this script --->
+
+UPDATE table 
+set geomcol = st_multi(st_collectionextract(st_makevalid(geomcol), 3))
+where st_isvalid(geomcol) = false; 
+
+Explanation:
+
+ST_COLLECTIONEXTRACT will pull out a particular type of component from a GeometryCollection. For example, 
+St_CollectionExtract(geom, 3) will return a Polygon or MultiPolygon.
+
+Since your column type is MultiPolygon, you may need to wrap St_CollectionExtract with yet another function, 
+St_Multi, to coerce POlygon geometries into single-component MultiPolygons. 
+
+Beware St_makevalid - it generally does what you'd expect it to, but  it's not magic and it can occasionally 
+"correct" your geometry in unexpected ways. It's a good idea to run a SELECT query first, to see what it has 
+in mind. 
+GEOMETRY COLLECTION AFTER RUNNING IT 
