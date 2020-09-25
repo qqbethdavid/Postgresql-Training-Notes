@@ -1,0 +1,37 @@
+Say you have an existing table with the following
+Columns:
+
+Schema.update_eez2020.iccat_nodups
+Columns
+
+Gid
+Name
+Rfmo_id
+Centeoid
+Seq
+Fao_area
+Geom
+
+
+To get a sample of this with desired columns 
+You can use 
+
+CREATE TABLE beth
+AS 
+(SELECT rfmo_id, fao_area
+FROM iccat_nodups)
+With data;
+
+This will select only those columns but will have the exact
+Same number of rows. 
+
+
+This is as opposed to creating a table without data
+Which you already know 
+
+CREATE TABLE tablename
+AS TABLE iccat_nodups
+With no data; 
+
+I think if you omit 'with no data'
+You will simply copy the entire table. 
