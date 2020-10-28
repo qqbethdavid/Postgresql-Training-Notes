@@ -19,3 +19,10 @@ belongs to the schema you want postgis to be enabled. For my case that is the tr
 schema. This means the public schema is not enabled. (I actually tried some postgis 
 commands in the public schema and it didn't work). I found the script in the postgis 2.4
 manual that was installed along with the postgis application. You can find it in windows start.
+
+
+Dbeaver "Java heap space" - this means your computer is out of memory because the table you are 
+Opening is probably too big and you need more RAM allocation.
+Open Dbeaver in cmd command prompt. Go to the folder where Dbeaver is installed
+Type it in msdos prompt, then enter. Then when you're in Dbeaver in msdos type this
+Dbeaver -vmargs -Xmx2g.
