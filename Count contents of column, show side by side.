@@ -1,0 +1,2 @@
+In order to find duplicate values you should run, SELECT year, COUNT(id) FROM YOUR_TABLE GROUP BY year HAVING COUNT(id) > 1 ORDER BY COUNT(id); 
+Using the sql statement above you get a table which contains all the duplicate years in your table.
