@@ -1,0 +1,22 @@
+In the taxon_habitat table in prodsauint.master you will find a column 
+"found_in_fao_area_id"  This data type is created using array 
+you can use in the syntax int4[] to produce that datatype. 
+
+e.g.
+create table test2 
+(taxon_key int4, fao_area_id_intersects int4[]);
+
+(I also used _int4 and it worked but better use the one with the brackets) 
+
+to be able to enter values in this column and in this dataype you can use either 
+
+e.g.
+insert into test 
+(taxon_key, fao_area_id_intersects)
+values (687878, '{21,31,41}');
+
+or this:
+
+insert into test 
+(taxon_key, fao_area_id_intersects)
+values (687878,  array[21,31,41]);
