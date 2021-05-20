@@ -35,3 +35,5 @@ shp2pgsql -s 4326 "2a_local" -a test.sample_shape_table | psql -h localhost -p 5
 shp2pgsql -I -s <SRID> <PATH/TO/SHAPEFILE> <SCHEMA>.<DBTABLE> | psql -U postgres -d <DBNAME>
 
 shp2pgsql -s 4326 "1a_global" -a "1a_global" test.amber | psql -h localhost -p 5432 -U postgres -d postgres
+
+https://www.bostongis.com/pgsql2shp_shp2pgsql_quickguide.bqg
