@@ -1,0 +1,37 @@
+source is from BostonGIS:
+
+OUTPUTING TO ESRI SHAPEFILE/DBF WITH PGSQL2SHP
+Export query to a shape file called jpnei.shp/dbf
+pgsql2shp -f "/path/to/jpnei" -h myserver -u apguser -P apgpassword mygisdb 
+	"SELECT neigh_name, the_geom FROM neighborhoods WHERE neigh_name = 'Jamaica Plain'"
+	
+Export a table in ma schema called streets to streets.shp/dbf
+pgsql2shp -f "/path/to/streets" -h myserver -u apguser -P apgpassword mygisdb ma.streets
+
+
+I used this script to export automatically into a shapefile outside the database without putting it in a table. 
+
+C:\Program Files\PostgreSQL\10\bin>pgsql2shp -f "C:\Ate\Work\other_requests\N_Bailly\territorial_seas_catch_map\temp\New folder\first.shp" -h localhost -u postgres -P chunkypredator 
+postgres undeleted_territorial.fishing_entity_all_geom_1sthalf
+
+pgsql2shp -f "C:\Program Files\PostgreSQL\10\bin>pgsql2shp -f "C:\Ate\Work\other_requests\N_Bailly\territorial_seas_catch_map\temp\New folder\
+
+C:\Program Files\PostgreSQL\10\bin>pgsql2shp -f "C:\Ate\Work\other_requests\N_Bailly\territorial_seas_catch_map\cells_based_on_fishing_entity\checking_negative_catch\shapes\fishingentity2.shp" -h localhost -u postgres -P chunkypredator postgres 
+"select * from undeleted_territorial.fishing_entity_all_geom_1sthalf where fishing_entity_id=2"
+
+reference: everything is in bostongis
+
+
+My previous study: 
+
+shp2pgsql -s 4301 -g geom -W SJIS -p 523800_31.shp adf.adf31 | psql -p 5432 -h localhost -U postgres -d maindb
+ 
+for f in *.shp
+do
+    shp2pgsql -s 4301 -g geom -W SJIS -a $f adf.adf31 | psql -p 5432 -h localhost -U postgres -d maindb
+done
+
+shp2pgsql -s 4326 "2a_local" -a test.sample_shape_table | psql -h localhost -p 5432 -U postgres -d postgres
+shp2pgsql -I -s <SRID> <PATH/TO/SHAPEFILE> <SCHEMA>.<DBTABLE> | psql -U postgres -d <DBNAME>
+
+shp2pgsql -s 4326 "1a_global" -a "1a_global" test.amber | psql -h localhost -p 5432 -U postgres -d postgres
