@@ -1,0 +1,3 @@
+to put text together from two separate fields: 
+
+select concat(genus,' ', species) as scientific_name from public.aquamaps_v2016_fb;
