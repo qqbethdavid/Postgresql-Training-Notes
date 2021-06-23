@@ -1,0 +1,26 @@
+SYNTAX:  CREATE VIEW <view_name> AS <query>;
+
+
+source: https://www.postgresqltutorial.com/managing-postgresql-views/
+
+CREATE VIEW customer_master AS
+  SELECT cu.customer_id AS id,
+    cu.first_name || ' ' || cu.last_name AS name,
+    a.address,
+    a.postal_code AS "zip code",
+    a.phone,
+    city.city,
+    country.country,
+        CASE
+            WHEN cu.activebool THEN 'active'
+            ELSE ''
+        END AS notes,
+    cu.store_id AS sid
+   FROM customer cu
+     INNER JOIN address a USING (address_id)
+     INNER JOIN city USING (city_id)
+     INNER JOIN country USING (country_id);
+     
+     
+     When creating views and when you have repeating columns (which usually are the same name), since a view is also like having another 
+     table, it is necessary that the column names are distinct. No two columns should have the same name hence the casting using AS. 
