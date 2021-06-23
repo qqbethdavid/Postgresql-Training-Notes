@@ -24,3 +24,15 @@ CREATE VIEW customer_master AS
      
      When creating views and when you have repeating columns (which usually are the same name), since a view is also like having another 
      table, it is necessary that the column names are distinct. No two columns should have the same name hence the casting using AS. 
+
+
+
+to rename the name/title of a view: 
+ALTER VIEW customer_master RENAME TO customer_info;
+
+to drop view:
+DROP VIEW [ IF EXISTS ] view_name;
+e.g.
+DROP VIEW IF EXISTS customer_info;
+
+we use the "if exists" clause to prevent errors when dropping views. Removing a view that does not exist in the database will result in an error. 
