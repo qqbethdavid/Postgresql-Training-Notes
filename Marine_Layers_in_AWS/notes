@@ -1,1 +1,9 @@
-area_key is unique for marine layers in prodsauint.geo.area
+AREA TABLE : area_key is unique for marine layers in prodsauint.geo.area
+            This table gets the area_key and ifa and has eez elements in it. Because the area_keys has corresponding 
+            EEZ ids in marine layers 1, 2, 3, 4 (I think until 10, please verify this with the web_area_table you downloaded 
+            from AWS
+            There is no problem with area table in geo. All EEZ v11 changes did not reach the ifa. The ifa is only reaching 
+            the coastline and this area did not extend into the shapes that were changed in Timor leste, Florida/Bahamas. Ifa 
+            aslo do not have provisions for the Antarctic areas so there are no Antarctic ifas. The total number of rows of the area 
+            table therefore remains the same. 
+           
