@@ -6,4 +6,10 @@ AREA TABLE : area_key is unique for marine layers in prodsauint.geo.area
             the coastline and this area did not extend into the shapes that were changed in Timor leste, Florida/Bahamas. Ifa 
             aslo do not have provisions for the Antarctic areas so there are no Antarctic ifas. The total number of rows of the area 
             table therefore remains the same. 
+
+
+IFA prodsauint vs ML 14 in simple area cell assignment 
+            These are not the same. Proof: Prince Edward Island is present in ML14 but not present in the actual 
+            IFA map in prod sau int. There is no ifa shape in the coasts of Prince Edward Island. 
+           
            
