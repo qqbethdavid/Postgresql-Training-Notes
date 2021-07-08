@@ -11,5 +11,7 @@ AREA TABLE : area_key is unique for marine layers in prodsauint.geo.area
 IFA prodsauint vs ML 14 in simple area cell assignment 
             These are not the same. Proof: Prince Edward Island is present in ML14 but not present in the actual 
             IFA map in prod sau int. There is no ifa shape in the coasts of Prince Edward Island. 
+            Quest: you must find the IFA that was used because it will need to be intersected with EEZ and then areas calculated. 
+            Or match the EEz v11 with the ML14
            
            
