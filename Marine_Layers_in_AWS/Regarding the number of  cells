@@ -1,0 +1,8 @@
+There is a file in AWS which I have already downloaded and is found in C:\Ate\Work\Allocation\EEZ_update_2021\Files_from_AWS
+where it lists down the number of cells of marine layers. But this only has information for marine layers 1 to 4 and the only
+information that you can use here is for layer 1 (EEZ by FAO) and 3 (LME) . The rest of the layers 2 and 4 has zero information 
+on number of cells. 
+
+Note: You will have to check this if this is the case in the old simple area cell assignment. Only then you can compare if this 
+document is updated and is still the one used by the simple area cell assignment in prod sau int. 
+
