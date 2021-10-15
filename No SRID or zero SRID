@@ -1,0 +1,13 @@
+use this: 
+
+select updategeometrysrid('schema', 'table_name', 'geometry', 4326);
+
+(Don't omit the quotation marks) 
+
+sample: 
+
+select updategeometrysrid('migration_revised', 'xiphias_gladius_e', 'geom', 4326); 
+
+To check if it worked, look at the properties of the table and check the DDL. You'll see that the SRID will have 
+been update. Initially it will have nothing before running the script. After the script is run it will show the 
+number 4326 in the multipolygon section of the script. 
