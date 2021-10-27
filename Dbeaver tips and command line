@@ -24,5 +24,7 @@ manual that was installed along with the postgis application. You can find it in
 Dbeaver "Java heap space" - this means your computer is out of memory because the table you are 
 Opening is probably too big and you need more RAM allocation.
 Open Dbeaver in cmd command prompt. Go to the folder where Dbeaver is installed
-Type it in msdos prompt, then enter. Then when you're in Dbeaver in msdos type this
+Type the address in the msdos prompt, then enter. Then when you're in Dbeaver in msdos type this
 Dbeaver -vmargs -Xmx2g.
+The 2g is the size of RAM you are allocating DBeaver to. You can change this to 3 or 4. It should be 
+always half of your RAM never more than half your RAM. 
