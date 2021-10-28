@@ -1,0 +1,10 @@
+sample of an index being used in the tables (with geom) that were in QA sau_geo:
+
+CREATE INDEX sidx_angie_tuna_cells_geom ON geo_old.angie_tuna_cells USING gist (geom);
+
+For the significance of putting indexes please refer to: 
+
+http://postgis.net/workshops/postgis-intro/indexing.html 
+
+These indexes using GIST (generic index structure) are suppose to shorten the time for queries. I seem to 
+be seeing this in tables with geoms.
