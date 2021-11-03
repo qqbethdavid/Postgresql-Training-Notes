@@ -1,0 +1,7 @@
+copy seabirds_x_cells.podiceps_auritus_165325 to 
+'C:\Ate\Work\Aquamaps_GEOMAR_AZARA\geomar_sebairds_x_halfdegree_cells\seabirds_to_send\podiceps_auritus_165325.csv' csv header;
+
+
+copy [schema.table] or (select * from table) to 
+'Path where you will save the csv file and the name of the csv file' csv header;
+
