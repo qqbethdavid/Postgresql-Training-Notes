@@ -1,4 +1,4 @@
 fao_x_newcells  - no need to change the areas to 3077.230009, the areas are not gonna be used. Only after intersecting it with 
                   eez or high seas are the areas gonna be taken into account.
                   
-                  
+The first intersect between tuna block (Type 1, 2 etc.) and highseas_x_ncell, eezv11_x_ncell                  
