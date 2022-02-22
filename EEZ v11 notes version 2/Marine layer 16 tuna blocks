@@ -3,4 +3,19 @@ fao_x_newcells  - no need to change the areas to 3077.230009, the areas are not 
                   
 The first intersect between tuna block (Type 1, 2 etc.) and highseas_x_ncell, eezv11_x_ncell will need to be dissolved
 
+Methods done:
+Intersect in partition: Tuna block x eez and Tuna block x high seas 
+- This is done because eez v11 has geometry intersections (probably because of too much detail in the coasts).
+
+1. Intersect - Tuna block x eez
+2. Dissolve - Tuna block x eez d1
+3. If not dissolving run Repair Geometry in Arc
+4. Then dissolve
+5. Get area in QGIS
+6. Delete less than 0.9 km2 areas 
+7. Export a copy of the table to Default.gdb to check shape areas. 
+8. Delete shape areas that are zero if any. 
+9. In the case of Tuna block x high seas. Add an eez_id column and populate it with zeros. This is so you will not have problems 
+when merging this table with Tuna block x eez.  
+
 
