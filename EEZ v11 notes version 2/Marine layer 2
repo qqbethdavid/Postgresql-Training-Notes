@@ -1,0 +1,4 @@
+Marine Layer 2
+
+High seas x new cells for cell assignment. There was no need to intersect it on FAO because the fields in high seas already has FAOs. I got a total 
+of 91158 rows. The cells below 0.1 are deleted. The area was computed in QGIS and compared with the area results in Arc and they are the same. 
