@@ -19,3 +19,40 @@ Intersect in partition: Tuna block x eez and Tuna block x high seas
 when merging this table with Tuna block x eez.  
 
 
+On combining marine layer 2, marine layer 12 and Type 1 blocks
+
+I made marinelayer_2_12 which is a combination of ml2 and ml12. You simply combine these. Then an error happened while intersecting 
+marinelayer_2_12 with Type I tuna blocks. An error something about the geometry which is self intersecting or null geometry that is why it cannot 
+intersect (this is in ArcGIS). I am not sure if this error happened because I did not do a merge process between ml2 and ml12. I just added them together in postgis 
+using the insert command. This I think is the cause of the error while intersecting. ArcGIS is very meticulous so I merged these two tables using the 
+merge tool and made an intersect with the Type I tuna block and it worked. 
+
+The next process was to dissolve the intersected tuna block and ml_2_12; 
+but an error also occurred after this. So the best way to do according to stackoverflow when these kinds of error occur (especially the 99999 error) 
+is to fix the geometry or dissolve the layer by parts (or partition). I decided first to fix geometry instead of doing partitions because that is 
+kind of tedious to do. So I fixed the geometry first in ArcGIS. I do not know if the same results will happen if fix geometry was done in QGIS. 
+Then, I tried dissolving in QGIS also but I am not sure if it worked okay, I 
+cannot remember. I think it didn't get fixed. Many times I tried fixing the geometries twice and then dissolving it in ArcGIS and always an error 
+occurs, the dissolve tool will not work. I believe it is probably because there are too many cells and too many fields/columns and many overlaying 
+EEZ especially in the South China Sea area. It made the shapefile very complicated. So I deleted the columns which are not needed like the x, y, 
+shape length, shape area, areakm2_qg, FID_, object ids etc. and retained only those that are needed like bigcell_id, type, eez_id, fao_area and 
+cell_id. Then I made a dissolve but still it did not work. So I put the table in Dbeaver to separate the duplicates that need to be dissolved. I 
+extracted only the duplicates and then fixed their geometries first in QGIS (I did this because there are errors in the geometry according to QGIS). 
+Once their geometries were fixed I made a dissolve (in QGIS) to remove the duplicates. This was successful. Then I put the new dissolved table back 
+into the main table (typeI_x_marlyr212 table). Now this table does not have duplicates anymore. I checked it in Dbeaver and there are no duplicates. 
+Next is to get the areas of the typeI_x_marlyr2_12 table in CEA. Then check the areas against the areas of the geo.cell 
+table. 
+
+The above procedure was done but unfortunately...
+
+The above procedure was the one initially done but unfortunately I ended up following another procedure. I did the partition thing instead. It is 
+problematic to dissolve marinelayer 2_12 with the type 1 tuna cells. Areas could change with this. So doing a partition what I did was intersect 
+separately marine layer 2  with type 1 and marine layer 12 with type 1. This works because marine layer 2 and 12 when combined somewhat do not 
+overlap (if there was it's only very little; but I did check and there are overlaps but very small) and also when they are combined they are only 
+merged and union is not used (in terms of geoprocessing). So doing this partition is somewhat similar with intersecting marine layer 2_12 to type 1. 
+Then a dissolve is done after marine layer 2_x_type 1 and marine layer 12_x_type1 to make sure there are no duplicate cells. But sometimes dissolve 
+in Arc doesn't work. In this case a repair geometry should be done. Repair the table the two resulting tables after intersection with the tuna block 
+Type. I think you should do this in Arc instead of in QGIS (fix geometry) because you'll be doing intersection and dissolve in Arc. Wait for the 
+result of the repair geometry. Sometimes it disappears so try to catch the dialogue box on time. This contains the action that was taken and what 
+shapes/geometries were fixed. It usually lists something like: "WARNING: 100107 Deleted feature 113 because of empty geometry or Repaired feature 114 
+because of self-intersections" 
