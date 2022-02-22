@@ -10,12 +10,13 @@ Intersect in partition: Tuna block x eez and Tuna block x high seas
 1. Intersect - Tuna block x eez
 2. Dissolve - Tuna block x eez d1
 3. If not dissolving run Repair Geometry in Arc
-4. Then dissolve
-5. Get area in QGIS
-6. Delete less than 0.9 km2 areas 
-7. Export a copy of the table to Default.gdb to check shape areas. 
-8. Delete shape areas that are zero if any. 
-9. In the case of Tuna block x high seas. Add an eez_id column and populate it with zeros. This is so you will not have problems 
+4. Then dissolve (at first degree)
+5. Dissolve again (at second degree) to make sure no duplicates are really left 
+6. Get area in QGIS
+7. Delete less than 0.9 km2 areas 
+8. Export a copy of the table to Default.gdb to check shape areas. 
+9. Delete shape areas that are zero if any. 
+10. In the case of Tuna block x high seas. Add an eez_id column and populate it with zeros. This is so you will not have problems 
 when merging this table with Tuna block x eez.  
 
 
