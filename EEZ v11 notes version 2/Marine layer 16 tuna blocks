@@ -57,3 +57,26 @@ Type. I think you should do this in Arc instead of in QGIS (fix geometry) becaus
 result of the repair geometry. Sometimes it disappears so try to catch the dialogue box on time. This contains the action that was taken and what 
 shapes/geometries were fixed. It usually lists something like: "WARNING: 100107 Deleted feature 113 because of empty geometry or Repaired feature 114 
 because of self-intersections" 
+
+I haven't really checked the result of fix geometry in QGIS. 
+
+Then physically check the areas for slivers and if there are no cells which are too small. These small cells are deleted along with the slivers. You 
+have to get the area first in QGIS to check for the slivers. I removed the areas valued at zero. Remember also you can check further for the nature 
+of the cell shapes by importing the shapefile in Arc Default Geodatabase. This shows the shape length and shape area. Shape areas that are zero can 
+generally be deleted. But also remember every time you import the shapefile in an arc geodatabase, the shape becomes complicated, probably has more 
+vertices than when it is a shapefile and not a geodatabase file (I found out about this in some stackoverflow discussions). It is preferred to be 
+processing in shapefiles than geodatabase files because the shapefiles will be lighter. So you should probably skip the importing to geodatabase 
+thing.
+
+The table is then checked against the geo.cell table water areas to check for negative differences. Area of the computed 
+cells should not be greater than that of the water_area in geo.cell. 
+
+
+
+On computing areas in QGIS vs ArcGIS
+
+Also as of now I am computing the areas in QGIS in CEA. I seem to be getting the same computed areas with Arc. They seem to be very similar. I 
+haven't thoroughly checked but it looks as if they are. Remember also that a glitch happens in QGIS every time areas are computed in CEA especially 
+when using the typed expression area(transform($geometry, 'EPSG=4326', 'USER=100001'))/1000000. Sometimes you will encounter a moment where you get 0 
+areas. It's a glitch, simply refresh and start a new session or new project or if that does not work close QGIS and open it again and then compute 
+the area. This happens to Arc too. Simply refresh and open a new project. 
