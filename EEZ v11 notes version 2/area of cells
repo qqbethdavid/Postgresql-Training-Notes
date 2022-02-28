@@ -1,0 +1,6 @@
+The areas, after computation in QGIS or ArcGIS, the ones below 0.1 were deleted. 
+But there is a need to check again the ones above 0.1. Sometimes you may need 
+to delete up to < 1 after checking if shape areas are fine. 
+
+shape areas with zero are deleted. 
+
