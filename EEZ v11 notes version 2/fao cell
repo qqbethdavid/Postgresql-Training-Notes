@@ -3,3 +3,6 @@ FAOs intersected with worldsq have bigger areas when computed. I don't know why.
 happen in new cells for cell assignment. It's kind of weird but from the documentation that I 
 have read, the new cells were also derived from worldsq table. 
 
+The fao cell in prod sau int geo was the one used for the new fao cell, only, I removed two cells
+here which are duplicates. The duplicate is retained in prod sau_int.geo in table fao_cell but 
+was removed in fao_cell_combo. The duplicates are no longer retained in the tables in prod sau_int.geo_new.
