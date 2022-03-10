@@ -6,6 +6,8 @@ I made a table retaining the c_name initially but when I found out it created du
 simple area cell assignment raw then I dissolved the c_name away to retain only three important fields: eez_id, 
 fao_area_id and cell_id. When integrating in simple area cell assignment the eez_id is used as area ids, so 
 retaining the c_name causes duplicates.The c_name is quite similar to eezs. These are names of the countries. 
-I think there is no reason to retain these when integration to simple area cell assignment is done. 
+I think there is no reason to retain these when integration to simple area cell assignment is done.
+
+
 
 
