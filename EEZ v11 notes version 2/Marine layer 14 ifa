@@ -1,2 +1,11 @@
-I used the one in sau_geo. It has 280 rows. It is more reasonable than the ifa in prod sau int. And this is the one 
-used in simple area cell assignment in prod sau in the previous allocation.  
+I used the one in prod sau int not the one in QAsau_geo. The one in sau_geo has 280 rows while the one in 
+prod sau int has at least 300 rows. It is more reasonable than the ifa in sau geo.
+
+Remember that when creating the marine layer 14 to be put in simple area cell assignment the c_name was dissolved away. 
+I made a table retaining the c_name initially but when I found out it created duplicates when integrated into 
+simple area cell assignment raw then I dissolved the c_name away to retain only three important fields: eez_id, 
+fao_area_id and cell_id. When integrating in simple area cell assignment the eez_id is used as area ids, so 
+retaining the c_name causes duplicates.The c_name is quite similar to eezs. These are names of the countries. 
+I think there is no reason to retain these when integration to simple area cell assignment is done. 
+
+
