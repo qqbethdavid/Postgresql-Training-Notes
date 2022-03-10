@@ -1,0 +1,5 @@
+I think you should be wary of getting the area of an fao table which is derived from worldsq. 
+FAOs intersected with worldsq have bigger areas when computed. I don't know why. This doesn't 
+happen in new cells for cell assignment. It's kind of weird but from the documentation that I 
+have read, the new cells were also derived from worldsq table. 
+
