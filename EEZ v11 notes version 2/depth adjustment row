@@ -1,0 +1,10 @@
+I was not able to decode this table. I have a shapefile that I have extracted from the old table 
+in prod sau int but I never got to understand how this was done. It is not even based on depth.
+From what I see it seems to be based on the movement of cells from the coast where row 1 to 51 is 
+how farther it is from the coast with row 1 being very close to the coast. I tried to extract 
+the adj_rows from the table but I couldn't dissolve it. There were errors. When intersected with 
+eezv11 x cells I cannot dissolve it either after the intersection because of the errors as well. 
+I tried fixing the geometry but it didn't work. 
+
+I took the new cells and replaced the old ones with it. Especially for new eez socotra and new 
+shapefile eez for Timor. 
