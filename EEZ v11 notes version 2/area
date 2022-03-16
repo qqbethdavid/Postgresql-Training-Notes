@@ -1,0 +1,15 @@
+This table is located in prod sau_int.geo
+This is the first table listed on this schema.
+Upon checking there is not much information as to what kind of table this is 
+and how it is derived. It looks similar in structure to ifa but it isn't ifa
+if you inspect it further. 
+
+It seems to have been buffered from the coast. I am not sure. 
+It has no names just area keys which are numbers. 
+
+The divisions are not even coinciding with eez's. 
+Could it be that it is outdated and not being used. 
+Merlin doesn't pull this table at all 
+
+There is no documentation what this table is. 
+I don't think I can update this table. 
