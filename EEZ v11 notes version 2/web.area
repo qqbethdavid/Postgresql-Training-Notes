@@ -1,8 +1,27 @@
 This I do not know if is being used. According to the documentation if there are changes 
 especially in this case were a new EEZ is used, the master.area should be changed. It seems 
-the other marine layers like 14, 15, 17 etc are not even in there. Another problem is there 
+the other marine layers like 12, 14, 15, 17 and 18  are not even in there. Another problem is there 
 are other marine layers which are in it which I am not familiar with like 5, 6, 7 etc.
 
-At the moment this table is not in the list of those being pulled by Merlin. At this time i 
-probably cannot revise this table. 
+The time when Gordon was working on the allocation last 2019. I'm pretty sure this wasn't even 
+updated. 
+
+It is possible that it contains only marine layers from 1 to 10 and then 19 because these are 
+the marine layers which do not contain EEZs. So it is possible it is being used and the EEZ-related 
+tables were intentionally removed so as to prevent any more changes to this table. Because the EEZ
+related tables are constantly changing. 
+
+At the moment this table is not in the list of those being pulled by Merlin. At this time there is no 
+reason to change this table. Unless there will be changes to the input tables (i.e. primary 
+production rate, seamounts etc.)
+
+Also, I checked the input tables, primary production rate. This table does not even contain any data on 
+primary production rate. I cannot say that the primary production values are the grid codes. That's 
+not possible, I think. Neither will it be the pointids. Those are just IDs. 
+
+Next the seamounts. I do not know which summary statistic to use here. There are lots of them, mean, sum, 
+average, etc. I can't find any documentation as to what statistic was used. Some of the information can 
+be found in Lore. It was documented by NB but details are not enough. Most of the information are 
+just simple definitions.
+
 
