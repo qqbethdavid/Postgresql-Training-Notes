@@ -1,0 +1,5 @@
+I combined the eez x fao x newcells and ices areas. You must not intersect the ifa here. The is_ifa field 
+in eez_ices_combo will be obtained by select by location using the eez x fao x newcells x ices and the 
+ifa shapefile. This way you can find out what cells have ifa. 
+
+
