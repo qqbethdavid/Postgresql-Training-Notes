@@ -1,8 +1,22 @@
+Remember to change the name of the column to id, whatever it's name is initially, such as 
+row_id or gid you should name it to id. Postgres doesn't seem to accept any other name for 
+the column with the sequence. Also, make sure this id column is set to serial initially 
+and is not null. I seem to have found a way to change sequences to whatever number  whether 
+it be 1 or 200 or a million in the past without using the serial but I forgot it already. So 
+I am resorting to this. 
+
+First create the name of the sequence:  
+
 create sequence ices_dissolved_all_seq; 
 
-alter table ices_dissolved_all
-alter id set default nextval('ices_dissolved_all_seq');
+Then use this script:
 
 alter sequence ices_dissolved_all_seq restart with 1;
 update ices_dissolved_all 
 set id=nextval('ices_dissolved_all_seq'); 
+
+
+
+This is an alternative script. I haven't actually used this yet:
+alter table ices_dissolved_all
+alter id set default nextval('ices_dissolved_all_seq');
