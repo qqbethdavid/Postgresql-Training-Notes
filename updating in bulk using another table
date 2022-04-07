@@ -7,3 +7,13 @@ where taxon_prodsau_int_copy.scientific_name = batch5_to8_from_office.scientific
 
 batch5_to8_from_office is the table that you newly created. The list of species that you 
 want updated in the main table which is the taxon_prodsau_int_copy. 
+
+
+I am not sure if this is working. I found this is one of my scripts in Dbeaver 
+
+update taxon_prodsau_int 
+set has_extent = b.has_extent 
+from taxon_prodsau_update_extents b
+where taxon_prodsau_int.taxon_key = b.taxon_key; 
+
+It seems I tried to update a column by setting it equal to the column itself and not to certain values. 
