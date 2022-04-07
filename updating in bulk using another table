@@ -9,7 +9,7 @@ batch5_to8_from_office is the table that you newly created. The list of species 
 want updated in the main table which is the taxon_prodsau_int_copy. 
 
 
-I am not sure if this is working. I found this is one of my scripts in Dbeaver 
+I am not sure if this is working. I found this in one of my scripts in Dbeaver 
 
 update taxon_prodsau_int 
 set has_extent = b.has_extent 
