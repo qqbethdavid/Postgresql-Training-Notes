@@ -1,2 +1,16 @@
+Remember that documentation for the construction and partial overhaul of the geo tables is barely documented and 
+I had a confusing time inspecting and mapping out every table there is in the geo. 
+
+These are some of the things I did and things that I should remember when doing an overhaul:
+
 Possibly geo entity id should be assigned to the new eez_id Socotra (or Antarctica, if it's included)
 The socio economic id is null in Antarctic eezs in eez_fao_combo_v11
+
+The socio economic id in eez_fao_combo_v11 can be derived from the socio_economic_area table in prod sau_int.geo
+
+The legacy numbers in eez table I am not sure how these are derived. These seem to have similarity to codes in Fishbase and Sealifebase.
+When I added Yemen (Socotra) I simply copied all information from Yemen (Saudi Arabia) and Yemen (Red Sea) because the information such as 
+geo_entity id, legacy ids, area status ids are all similar. In the eez table I did not include Antarctica since this is not a real eez 
+and there are no access agreements either for it. 
+
+
