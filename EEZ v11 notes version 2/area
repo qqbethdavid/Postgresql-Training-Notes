@@ -22,22 +22,7 @@ for this. Since as I notice the area table seems to have been based on a very ve
 old EEZ (this is because of the probably the derived areas?). I included the Socotra division. 
 
 
-In computing for the area you need the input shapefiles. Check AWS or your folder sau_geo_shapefiles/AWS_shapefiles/web_area/input_shapefiles
-
-The area table has fields, area, shelf area, ifa, coral reefs, seamounts, ppr, and number of cells. These need to be 
-computed. The shapefile I used is I think the EEZ. If you will check the areas of a particular eez per fao area id you will 
-notice that if you sum the areas this will total to the area of the eez (try computing for Australia). I seem to have used
-the EEZ. 
-
-
-1. For the shelf: I used the shapefile shelf in AWS to compute for shelf area. 
-2. For coral reefs: I used the shapefile coral reefs from AWS. 
-seamounts: I left this blank because I cannot figure out what values to use in the seamount table. I think (but I am not sure) that this 
-is safe since if you check the Properties/DDL of the area table in beaver you'll see that seamounts can be null;
-3. ppr: this is primary production rate. I computed the average of this. (It seems to be the average).
-4. number of cells: This is simply the number of cells for that particular eez and fao. 
-
-
-For the area table I only updated marine layer 1. I have no idea what the other marine layers are. I inspected these but 
-haven't figured it out.  
+This table is probably not related to the web.area table. The web.area table used EEZs. This area table 
+however doesn't look like an EEZ but follows some of the boundaries of the EEZ but not all of them hence 
+my conclusion that this follows the boundaries of an ancient EEZ shapefile. How ancient it is I do not know. 
 
