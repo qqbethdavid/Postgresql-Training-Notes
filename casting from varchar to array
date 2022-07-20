@@ -1,0 +1,6 @@
+alter table geo.high_seas_prodsauint
+alter column eez_ogc_fi type int[] 
+using (eez_ogc_fi::int[]); 
+
+You will also be using the syntax for converting from text to integer. 
+You may look it up in the other postgresql note listed here.
