@@ -1,0 +1,7 @@
+create table [name of new table]
+as table [the table you are copying];
+
+or 
+
+select * into [name of new table]
+from [name of table you are copying];
