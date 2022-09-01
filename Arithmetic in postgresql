@@ -1,0 +1,14 @@
+You can actually do simple arithmetic in Postgresql, e.g.
+
+SELECT 5 + 5;
+
+This will give you the sum of 10 as a result
+
+or 
+
+
+SELECT 27/3*100 as result;
+
+this will give you 900
+
+(as result is only to name the column/field of the result)
