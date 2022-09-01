@@ -2,5 +2,5 @@ Open the command prompt, Windows key + R
 Type cmd
 you will be prompted to this C:\Users\Beth> 
 Type   cd C:\Program Files\Dbeaver  (cd means change directory to the path you have typed)
-Then type Dbeaver -vmargs _Xmx4g   (4g is the amount of memory you are allotting. It doesn't work if you 
+Then type Dbeaver -vmargs -Xmx4g   (4g is the amount of memory you are allotting. It doesn't work if you 
 type 3.5 or 2.5, only a whole number will do. Usually you allot half of your RAM to it not more than half).
