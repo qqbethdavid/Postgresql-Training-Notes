@@ -1,0 +1,24 @@
+SCRIPTS USED FOR DATA REQUEST DIANE NEWELL:
+
+with ovate as 
+	(select cell_id, avg(catch sum)
+from (select cell_id, year, sector_type_id, catch_sum from web.cell_catch
+where year between 2000 and 2009 
+and sector_type_id=1) as d
+group by cell_id)
+insert into ave_catch20s
+(cell_id, ave_catch)
+select * from ovate; 
+
+with ovate1 as 
+	(select a.cell_id, a.ave_catch, b.geom 
+	from web.ave_catch20s a 
+	inner join geo.cell_grid b on 
+		a.cell_id=b.cell_id)
+	insert into ave_catch_x_cellgrid
+(cell_id, ave_catch, geom)
+select * from ovate1;
+
+
+
+SCRIPT USED FOR 
