@@ -1,0 +1,10 @@
+select
+    cc.year,
+    cc.taxon_key,
+    sum(cc.catch_sum)
+from web.cell_catch cc
+where cc.cell_id in (select a.cell_id from geo_data_request.aegean_gsa22_x_newcell a)
+and cc.taxon_key in (select cdt.taxon_key from web.cube_dim_taxon cdt where cdt.taxon_level_id = 6)
+group by
+    cc.year,
+    cc.taxon_key
