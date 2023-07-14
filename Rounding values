@@ -1,0 +1,31 @@
+I tried rounding values after getting the areas using Postgresql but I usually get this warning:
+
+SQL Error [42883]: ERROR: function round(double precision, integer) does not exist
+Hint: No function matches the given name and argument types. You might need to add explicit
+type casts. 
+Position: 22
+
+
+my script looks like this: 
+
+SELECT g.seq, g.lat, ROUND(g.area_275_lat, 3) 
+FROM 
+(SELECT seq, lat, st_area(st_transform(geom, 98287))/1000000 as area_275_lat 
+ FROM geo.worldsq;
+
+
+ Somehow a double precision cannot be rounded (I have not explored on why that is). So you need to cast 
+ the resulting field, area_275_lat into something else, i.e. numeric (or maybe float, but numeric worked).
+ So the script below worked:
+
+
+SELECT g.seq, g.lat, ROUND(g.area_275_lat::numeric, 3) 
+FROM 
+(SELECT seq, lat, st_area(st_transform(geom, 98287))/1000000 as area_275_lat 
+ FROM geo.worldsq;
+
+
+ you can also use this syntax: 
+
+ select ROUND(CAST(longitude AS numeric),2) from my_points; 
+ 
