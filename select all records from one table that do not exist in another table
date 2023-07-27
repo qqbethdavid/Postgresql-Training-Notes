@@ -1,0 +1,8 @@
+SELECT t1.name
+FROM table1 t1
+LEFT JOIN table2 t2 ON t2.name = t1.name
+WHERE t2.name IS NULL
+
+This is actually similar to how I select hcaf points in Navicat using multiple species ids. 
+The only difference is instead of writing "where a.speciesid =b.speciesid" 
+you write instead "where table2.name is null". 
