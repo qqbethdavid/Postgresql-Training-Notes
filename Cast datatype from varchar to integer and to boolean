@@ -7,3 +7,8 @@ ALTER TABLE the_table ALTER COLUMN col_name TYPE integer USING (col_name::intege
 
 SOURCE: 
 https://stackoverflow.com/questions/13170570/change-type-of-varchar-field-to-integer-cannot-be-cast-automatically-to-type-i
+
+
+This is also the same syntax used when converting/casting from varchar to boolean.
+
+
