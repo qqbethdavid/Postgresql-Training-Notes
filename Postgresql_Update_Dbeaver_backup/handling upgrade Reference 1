@@ -1,0 +1,24 @@
+I have read that I can use and type pg_dump in postgres to be able to backup the database from my local. 
+But it can also be done using the GUI of Dbeaver where you can use right click the database, choose "Tools"
+and choose "Backup" to dump your database in a folder somewhere of your choosing. I did the latter. I have not 
+tried the first method. 
+
+There is also a case where one used the script, "pg_dump" and was using Ubuntu as an OS. Ubuntu stored both Postgres 12 
+(which is his older version) and Postgres 14 (the version he wanted), so he had problems executing scripts because the 
+system was still using Postgres 12 instead of 16. You can read it here: 
+
+https://superuser.com/questions/1810743/how-to-make-latest-postgresql-version-upgrade-the-default-version-in-ubuntu-foca
+
+The solution is, according to the person who answered the question in stackoverflow, is change the port for Postgres 12 and 
+Postgres 14. They shouldn't be similar. You can assign port 5432 to the 16 version and 5433 to the 12 version. 
+
+Also, to prevent such things from happening and getting more problems, he suggested it would be better to dump and make a copy of 
+your database in the old postgresl. Keep it. Uninstall the old version of postgresql. Then install the new version and then 
+restore your old database which you dumped or saved. That way you're not going to have problems.
+
+His exact words:
+
+"If you only want to run PostgreSQL 16 and don't need PostgreSQL 12, then just uninstall the latter. Dump the databases first in case something happens. 
+  In the future, instead of upgrading, dump the databases, uninstall the current release, install the new release, and then import the databases. –" 
+Nasir Riley
+ Oct 1, 2023 at 0:30
