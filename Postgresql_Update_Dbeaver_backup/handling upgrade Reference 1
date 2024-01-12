@@ -16,7 +16,13 @@ Also, to prevent such things from happening and getting more problems, he sugges
 your database in the old postgresl. Keep it. Uninstall the old version of postgresql. Then install the new version and then 
 restore your old database which you dumped or saved. That way you're not going to have problems.
 
-His exact words:
+Their exact words:
+
+"The simplest solution would be to edit the /etc/postgresql/<version>/<cluster>/postgresql.conf files and swap the ports where 5432 
+is for the 16 version and 5433 is for the 12 version. Then restart the servers. You could also read the blog posts I wrote about 
+this Install and Commands. – "
+Adrian Klaver
+ Sep 30, 2023 at 20:49
 
 "If you only want to run PostgreSQL 16 and don't need PostgreSQL 12, then just uninstall the latter. Dump the databases first in case something happens. 
   In the future, instead of upgrading, dump the databases, uninstall the current release, install the new release, and then import the databases. –" 
