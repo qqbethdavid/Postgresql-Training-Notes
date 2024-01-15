@@ -1,0 +1,6 @@
+This is already automatically installed when you intalled Postgresql 16. 
+I found the GUI in this folder:
+C:\Program Files\PostgreSQL\16\bin\postgisgui
+
+It is the file shp2pgsql-gui.exe
+Simply make a shortcut in your desktop for this executable. 
