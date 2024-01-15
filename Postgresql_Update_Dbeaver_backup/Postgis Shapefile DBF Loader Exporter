@@ -4,3 +4,21 @@ C:\Program Files\PostgreSQL\16\bin\postgisgui
 
 It is the file shp2pgsql-gui.exe
 Simply make a shortcut in your desktop for this executable. 
+
+You have to activate Postgis first. If you don't you won't be able import and export 
+shapefiles using the PostGIS Shapefile DBF Loader Exporter App. 
+YOu can activate using this script:
+
+CREATE EXTENSION PostGIS;
+
+I did this but I had problems with the spatial_ref_sys table in the public folder. 
+It will interfere when you run the script Create Extension PostGIS. For some reason, 
+PostGIS probably has its own table named as spatial_ref_sys and having a table in 
+public with a similar name is not allowed. You can erase it first and then return the 
+spatial_ref_sys table again in public once you're done activating PostGIS. 
+
+
+
+
+
+
