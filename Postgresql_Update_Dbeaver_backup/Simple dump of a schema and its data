@@ -1,0 +1,84 @@
+Please also read the PDF file "What is a Dump file and how to dump and restore..."
+
+First I went to command line (please always be in the bin folder of postgresql in your C:\Program Files 
+to be able to execute the commands. 
+
+I did the scripts in the pdf file except, because I was dumping a schema and not a database I used the switch -n
+
+To check for the different switches used in postgresql type "postgres --help" in the command line and it will 
+show you. 
+
+The BASIC SWITCHES I used were:
+-U username = NAME
+-d database name = DBNAME; defines the target database name which must exist in the server
+-n or --schema  --> defines the name of the schema to be restored; (if using pg_restore) it instructs pg_restore to restore only objects that are in 
+  the named schema. This restores schema structure and data  
+  (the -s switch is also being used but this only dumps schema structure not the data)
+-s Schema structure only no data included
+-f filename = FILENAME
+-h host name = HOSTNAME
+-p port =PORT
+[filename].dump (i.e. test.dump) --> the name of the database backup file. In this case, the backup is in a custom format, 
+  one of the formats supported by the pg_dump tool. 
+
+
+
+
+My actual script was:
+
+DUMPING:
+
+pg_dump.exe -U postgres -d postgres -n virgil -f C:\Work\dbeaver_backup\test.dump 
+
+when you press enter this will prompt a password so type your password.
+
+This worked and then I restored it
+
+
+RESTORING:
+
+psql.exe -U postgres -d marfets -f C:\Ate\Work\dbeaver_backup\test.dump
+
+This prompted a password.  Type the password.
+(note: The marfets database was a database that I newly created) 
+
+Once you type the password several commands will appear below showing that the schema is being copied and when the prompt goes back to directory,
+C:\Program Files\Postgresql\10\bin  then it is finished.
+
+This actually worked when I transferred a schema (virgil) from my laptop kraken to office PC. 
+I copied the test.dump file first from my laptop to the office PC and then ran the script to restore 
+in the command line.The same tables were restored in the office Postgresql 16 on Dbeaver
+
+
+Then I dropped the schema in the Kraken laptop. I used this script: 
+
+drop schema virgil cascade; 
+
+cascade is used to drop all the objects related to that schema.
+
+
+OTHER POINTERS:
+
+(1) The basic of restoring a dump file: 
+
+This is another way of restoring but I did not use this one: 
+
+pg_restore -d testdb -n schema_name1 -n schema_name2 -n schema_name 3 backup.dump  OR
+
+pg_restore -d testdb --schema=schema_name1 --schema=schema_name2 --schema=schema_name3 backup.dump
+
+
+(2) To dump without data:
+pg_dump dbname -s -n dm_geo -f backup.sql
+
+To dump schema and data:
+pg_dump dbname -n dm_geo -f backup.sql
+
+
+
+source: 
+(1) https://dba.stackexchange.com/questions/194098/pg-dump-issue-while-dumping-single-schema
+(2) https://www.tecmint.com/restore-schema-postgresql-database/#:~:text=If%20you%20intend%20to%20restore,non%2Dplain%2Dtext%20formats.
+(3) https://medium.com/codex/postgresql-and-their-dumps-in-windows-10-fdff4c960ea3
+(4) https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm
+(5) https://www.postgresqltutorial.com/postgresql-administration/postgresql-drop-schema/
