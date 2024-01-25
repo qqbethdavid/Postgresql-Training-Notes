@@ -75,6 +75,8 @@ pg_dump dbname -s -n dm_geo -f backup.sql
 To dump schema and data:
 pg_dump dbname -n dm_geo -f backup.sql
 
+
+DUMPING AND RESTORING USING THE DBEAVER INTERFACE:
 There is another way to dump and it is through the use of the interface Dbeaver. You right click the schema or database 
 and then look for tools then look for backup. The file can be backed up as a tar file or as a custom (I'm not sure yet what 
 a custom file is but I am guessing it is the .dump file). The problem is when you restore this using the interface again, your 
