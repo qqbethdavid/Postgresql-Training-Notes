@@ -30,9 +30,10 @@ DUMPING:
 
 pg_dump.exe -U postgres -d postgres -n virgil -f C:\Work\dbeaver_backup\test.dump 
 
-when you press enter this will prompt a password so type your password.
+when you press enter this will prompt a password so type your password. It actually dumps very fast. On the prompt you'll see only 
+a cursor flickering below but when you check the folder where you put the dump file you will see it is already saved.
 
-This worked and then I restored it
+After this, I restored it.
 
 
 RESTORING:
@@ -73,6 +74,16 @@ pg_dump dbname -s -n dm_geo -f backup.sql
 
 To dump schema and data:
 pg_dump dbname -n dm_geo -f backup.sql
+
+There is another way to dump and it is through the use of the interface Dbeaver. You right click the schema or database 
+and then look for tools then look for backup. The file can be backed up as a tar file or as a custom (I'm not sure yet what 
+a custom file is but I am guessing it is the .dump file). The problem is when you restore this using the interface again, your 
+postgresql database will get corrupted. In my case, my Postgis got corrupted. It would not work. So I had to uninstall the whole 
+postgres and install it again to start from scratch. 
+
+It would be better to just restore the file using the command line. I think. But I have not tried restoring a tar file using the 
+command line. I only was able to restore using the dump file. 
+
 
 
 
