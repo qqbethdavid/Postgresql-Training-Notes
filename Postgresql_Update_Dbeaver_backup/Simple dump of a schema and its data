@@ -89,6 +89,17 @@ It would be better to just restore the file using the command line. I think. But
 command line. I only was able to restore using the dump file. 
 
 
+WHEN YOU HAVE PROBLEMS WITH 'directory not found" of "no matching schemas were found WHEN YOU TRY TO DUMP FILES. 
+
+That means the name you typed on your schema is wrong or you have capitalized letters in the schema name which 
+you will workaround by putting quotation marks and backslashes. 
+
+i.e. (this is for OS linux this is just a sample).
+sudo -u postgres pg_dump -v Database_Name -t "\"Table_Name\""  
+
+This actually worked. 
+
+
 
 
 source: 
