@@ -31,7 +31,9 @@ DUMPING:
 pg_dump.exe -U postgres -d postgres -n virgil -f C:\Work\dbeaver_backup\test.dump 
 
 when you press enter this will prompt a password so type your password. It actually dumps very fast. On the prompt you'll see only 
-a cursor flickering below but when you check the folder where you put the dump file you will see it is already saved.
+a cursor flickering below but when you check the folder where you put the dump file you will see it is already saved. But then 
+try hitting Enter if you can go back to the postgresql bin address, I think if it does then the dump is done. Don't hit exit() or 
+else you'll close the whole command prompt. 
 
 After this, I restored it.
 
