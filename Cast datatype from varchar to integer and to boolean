@@ -3,7 +3,8 @@ PASS A VARCHAR TO A FUNCTION EXPECTING INTEGER OR ASSIGN A VARCHAR FIELD TO AN I
 SO YOU MUST SPECIFY AN EXPLICIT CAST USING 
 "ALTER TABLE...ALTER COLUMN...TYPE...USING"
 
-ALTER TABLE the_table ALTER COLUMN col_name TYPE integer USING (col_name::integer);
+ALTER TABLE the_table 
+ALTER COLUMN col_name TYPE integer USING (col_name::integer);
 
 SOURCE: 
 https://stackoverflow.com/questions/13170570/change-type-of-varchar-field-to-integer-cannot-be-cast-automatically-to-type-i
