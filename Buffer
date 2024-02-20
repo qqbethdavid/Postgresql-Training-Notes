@@ -1,0 +1,27 @@
+Problem:
+
+How to change buffer size from degrees to distance by meters in PostGIS?
+
+SELECT ST_Buffer(geom, 400)
+FROM my_table;
+
+
+THis query creates a buffer in 400 degrees. How can I change it to have 400 m
+buffer around points? I have tried to use ST_Transform and ST_SetSRID but I got
+errors. Most likely because I structure my query wrong. Thank you for your help.
+
+
+ANSWER:
+
+ST_Buffer uses the projection unit. You can cast the geometry to a geography to use 
+meters, or rely on a suitable local projectioni whose unit is in meters.
+
+SELECT ST_Buffer(geom::geography, 400)
+FROM my_table; 
+
+
+If it is not yet set, you may have to set the original CRS first
+
+SELECT ST_Buffer(st_setSRID(geom,4326)::geography, 400)
+FROM my_table;
+
