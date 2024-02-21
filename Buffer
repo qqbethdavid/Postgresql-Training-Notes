@@ -25,3 +25,56 @@ If it is not yet set, you may have to set the original CRS first
 SELECT ST_Buffer(st_setSRID(geom,4326)::geography, 400)
 FROM my_table;
 
+
+-----ANOTHER CASE----
+Postgis Metric buffer
+
+Problem:
+I'd like to form a 500 m buffer around a coordinate. That coordinate is in WGS 84. I've 
+been playing with this for a little and seem to have a solution, but it seems way 
+too complicated.
+
+SELECT ST_AsText(ST_Transform(ST_Buffer((ST_Transform(ST_GeomFromText('POINT(-71.104 42.315)', 4326), 3857)), 500), 4326))
+
+In this solution, I first transform the point to a metric coordinates system (EPSG:3857) si 
+the buffer distance is metric. Then I generate the buffer and then I transform the buffer 
+back into WGS, as I need the result in WGS>
+
+Isn't there a simpler solution?
+
+
+
+ANSWER:
+ Your result might not be what you expected.
+There is a difference between these two queries: 
+Your first query (line 37) 
+The second query (which I provide here) 
+
+SELECT ST_Buffer(ST_GeomFromText('POINT(-71.104 42.315)', 4326)::geography, 500) 
+
+Check the output using QGIS. 
+
+The result of the first query, displayed in red that you mentioned in your question, has a minor area
+and the diameter is about 740 meters (smaller)
+
+The second query, displayed in green has a diameter of 1000 meters. The second query uses the 
+goegraphy ST_Buffer(geography g1, float radius_of_buffer_in_meters) function 
+(with a geography as the first argument). 
+
+If you want to compute the area, also use the float ST_Area(geography geog, boolean use_spheroid=true) 
+function (with geography as the first argument). 
+
+I've also computed the areas of both results to make sure the second way of calculating 
+the buffer is the correct one. 
+
+So, in summary, use the provided ST_Buffer function with a geography as the 
+argument: 
+
+SELECT ST_Buffer(ST_GeomFromText('POINT(-71.104 42.315)', 4326)::geography, 500).
+
+
+
+
+
+
+
