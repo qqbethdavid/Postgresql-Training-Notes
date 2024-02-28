@@ -48,12 +48,18 @@ psql.exe -U postgres -d marfets -f C:\Ate\Work\dbeaver_backup\test.dump
 This prompted a password.  Type the password.
 (note: The marfets database was a database that I newly created) 
 
+When restoring, the file that you need to restore may or may not have an extension in its name. It could be .dump or something else 
+or it could have no extension when you copied it. Always include the extension when writing it down in the command prompt with the script above. 
+If it doesn't have an extension then do not put any. 
+
 Once you type the password several commands will appear below showing that the schema is being copied and when the prompt goes back to directory,
 C:\Program Files\Postgresql\10\bin  then it is finished.
 
 This actually worked when I transferred a schema (virgil) from my laptop kraken to office PC. 
 I copied the test.dump file first from my laptop to the office PC and then ran the script to restore 
-in the command line.The same tables were restored in the office Postgresql 16 on Dbeaver
+in the command line.The same tables were restored in the office Postgresql 16 on Dbeaver. The geometry fields 
+were also successfully transferred. 
+
 
 
 Then I dropped the schema in the Kraken laptop. I used this script: 
