@@ -3,6 +3,9 @@ Please also read the PDF file "What is a Dump file and how to dump and restore..
 First I went to command line (please always be in the bin folder of postgresql in your C:\Program Files 
 to be able to execute the commands. 
 
+bin folder is in:
+C:\Program Files\Postgresql\16 or 10\bin
+
 I did the scripts in the pdf file except, because I was dumping a schema and not a database I used the switch -n
 
 To check for the different switches used in postgresql type "postgres --help" in the command line and it will 
@@ -26,7 +29,7 @@ The BASIC SWITCHES I used were:
 
 My actual script was:
 
-DUMPING:
+DUMPING (this is the actual script): 
 
 pg_dump.exe -U postgres -d postgres -n virgil -f C:\Work\dbeaver_backup\test.dump 
 
